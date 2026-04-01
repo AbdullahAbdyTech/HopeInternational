@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://hopeinternationalacademy.com/sitemap.xml
