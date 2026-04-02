@@ -83,15 +83,44 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             if (valid) {
                 const btn = form.querySelector('button[type="submit"]');
-                btn.textContent = 'Submitted Successfully!';
-                btn.style.background = '#22c55e';
+                btn.textContent = 'Submitting...';
                 btn.disabled = true;
-                form.reset();
-                setTimeout(() => {
-                    btn.textContent = 'Submit';
-                    btn.style.background = '';
-                    btn.disabled = false;
-                }, 3000);
+
+                // Collect form data
+                const data = {};
+                new FormData(form).forEach((v, k) => { data[k] = v; });
+                data.submittedAt = new Date().toISOString();
+
+                // Save to Firestore if available
+                if (window.db && form.id === 'studentForm') {
+                    window.db.collection('studentRegistrations').add(data)
+                        .then(() => {
+                            btn.textContent = 'Submitted Successfully!';
+                            btn.style.background = '#22c55e';
+                            form.reset();
+                        })
+                        .catch(() => {
+                            btn.textContent = 'Error! Try Again';
+                            btn.style.background = '#e74c3c';
+                            btn.disabled = false;
+                        })
+                        .finally(() => {
+                            setTimeout(() => {
+                                btn.textContent = 'Submit Registration';
+                                btn.style.background = '';
+                                btn.disabled = false;
+                            }, 3000);
+                        });
+                } else {
+                    btn.textContent = 'Submitted Successfully!';
+                    btn.style.background = '#22c55e';
+                    form.reset();
+                    setTimeout(() => {
+                        btn.textContent = 'Submit';
+                        btn.style.background = '';
+                        btn.disabled = false;
+                    }, 3000);
+                }
             }
         });
     });
