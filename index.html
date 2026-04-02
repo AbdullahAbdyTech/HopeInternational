@@ -327,5 +327,57 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <script>
+        // Firebase Config (APNA CONFIG YAHAN DALO)
+        const firebaseConfig = {
+            apiKey: "AIzaSyAj3QWJxL0yFvLJJ8eU8YAcd33oFynGm4c",
+            authDomain: "hopeinternational-378e5.firebaseapp.com",
+            projectId: "hopeinternational-378e5",
+            storageBucket: "hopeinternational-378e5.firebasestorage.app",
+            messagingSenderId: "42330377617",
+            appId: "1:42330377617:web:e9cabd6a1f21e0b8b31e30",
+            measurementId: "G-5XVSDY84EZ"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+
+        // ================= STUDENT FORM =================
+        const studentForm = document.getElementById("studentForm");
+
+        if (studentForm) {
+            studentForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
+
+                try {
+                    await db.collection("students").add({
+                        studentName: studentForm.studentName.value,
+                        parentName: studentForm.parentName.value,
+                        email: studentForm.email.value,
+                        phone: studentForm.phone.value,
+                        city: studentForm.city.value,
+                        grade: studentForm.grade.value,
+                        subjects: studentForm.subjects.value,
+                        tutoringType: studentForm.tutoringType.value,
+                        message: studentForm.message.value,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+
+                    alert("✅ Student Registered Successfully!");
+                    studentForm.reset();
+
+                } catch (error) {
+                    console.error(error);
+                    alert("❌ Error saving data");
+                }
+            });
+        }
+    </script>
 </body>
 </html>
