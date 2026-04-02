@@ -92,8 +92,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 data.submittedAt = new Date().toISOString();
 
                 // Save to Firestore if available
-                if (window.db && form.id === 'studentForm') {
-                    window.db.collection('studentRegistrations').add(data)
+                var collection = form.id === 'studentForm' ? 'studentRegistrations'
+                    : form.id === 'teacherForm' ? 'teacherRegistrations' : null;
+
+                if (window.db && collection) {
+                    window.db.collection(collection).add(data)
                         .then(() => {
                             btn.textContent = 'Submitted Successfully!';
                             btn.style.background = '#22c55e';
