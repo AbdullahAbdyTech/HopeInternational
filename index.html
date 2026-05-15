@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Hope International Academy - Pakistan's #1 home tutor & online tutor academy. Find best home tutors in Lahore, Karachi, Islamabad for Matric, FSc, O Levels, A Levels. Affordable private tuition for math, science, English & all subjects.">
-    <meta name="keywords" content="home tutor in Lahore, home tutor in Karachi, home tutor in Islamabad, online tutor Pakistan, home tuition Pakistan, best tutor in Pakistan, private tutor Pakistan, tuition academy near me, online tuition Pakistan, math tutor Pakistan, science tutor at home, female home tutor, O levels tutor, A levels tutor, matric tutor, FSc tutor, home tutoring service Pakistan, affordable home tutor, English tutor online Pakistan, physics tutor, chemistry tutor, computer science tutor, Quran tutor online, tuition centre Lahore, tuition academy Karachi, home tutor Rawalpindi, home tutor Faisalabad, home tutor Multan, Cambridge tutor Pakistan, IELTS tutor Lahore, Hope International Academy">
+    <meta name="description" content="Hope International Academy - Pakistan's trusted home tutor & online tutor academy. Find best home tutors in Lahore, Islamabad, and Faisalabad for Matric, FSc, O Levels, A Levels. Affordable private tuition for math, science, English & all subjects.">
+    <meta name="keywords" content="home tutor in Lahore, home tutor in Islamabad, home tutor in Faisalabad, online tutor Pakistan, home tuition Pakistan, best tutor in Pakistan, private tutor Pakistan, tuition academy near me, online tuition Pakistan, math tutor Pakistan, science tutor at home, female home tutor, O levels tutor, A levels tutor, matric tutor, FSc tutor, home tutoring service Pakistan, affordable home tutor, English tutor online Pakistan, physics tutor, chemistry tutor, computer science tutor, Quran tutor online, tuition centre Lahore, Cambridge tutor Pakistan, IELTS tutor Lahore, Hope International Academy">
     <meta name="author" content="Hope International Academy">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta property="og:title" content="Best Home Tutor & Online Tutor in Pakistan | Hope International Academy">
-    <meta property="og:description" content="Pakistan's #1 home tutoring & online tuition academy. Find verified tutors in Lahore, Karachi, Islamabad for Matric, FSc, O/A Levels. All subjects covered.">
+    <meta property="og:description" content="Pakistan's trusted home tutoring & online tuition academy. Find verified tutors in Lahore, Islamabad, and Faisalabad for Matric, FSc, O/A Levels. All subjects covered.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://hopeinternationalacademy.com">
     <meta property="og:image" content="images/og-image.jpg">
@@ -25,14 +25,14 @@
         "@type": "EducationalOrganization",
         "name": "Hope International Academy",
         "url": "https://hopeinternationalacademy.com",
-        "description": "Pakistan's #1 home tutor and online tutoring academy. Find best home tutors in Lahore, Karachi, Islamabad for Matric, FSc, O Levels, A Levels and all subjects.",
-        "address": { "@type": "PostalAddress", "addressLocality": "Lahore", "addressRegion": "Punjab", "addressCountry": "PK" },
+        "description": "Pakistan's trusted home tutor and online tutoring academy. Find best home tutors in Lahore, Islamabad, and Faisalabad for Matric, FSc, O Levels, A Levels and all subjects.",
+        "email": "hopeinternationaltutoracademy@gmail.com",
+        "telephone": "+92 301 4809150",
+        "address": { "@type": "PostalAddress", "addressLocality": "Lahore, Islamabad, Faisalabad", "addressCountry": "PK" },
         "areaServed": [
             {"@type": "Country", "name": "Pakistan"},
             {"@type": "City", "name": "Lahore"},
-            {"@type": "City", "name": "Karachi"},
             {"@type": "City", "name": "Islamabad"},
-            {"@type": "City", "name": "Rawalpindi"},
             {"@type": "City", "name": "Faisalabad"}
         ],
         "hasOfferCatalog": {
@@ -83,6 +83,7 @@
     <main id="main">
         <!-- Hero -->
         <section class="hero" id="hero">
+            <canvas id="particleCanvas" class="particle-canvas"></canvas>
             <div class="hero-bg-circles"></div>
             <div class="container hero-inner">
                 <div class="hero-content fade-up">
@@ -133,8 +134,8 @@
                     <span class="stat-label">Subjects Covered</span>
                 </div>
                 <div class="stat-card fade-up delay-3">
-                    <span class="stat-number" data-target="15">0</span><span class="stat-plus">+</span>
-                    <span class="stat-label">Cities in Pakistan</span>
+                    <span class="stat-number" data-target="3">0</span>
+                    <span class="stat-label">Service Locations</span>
                 </div>
             </div>
         </section>
@@ -255,7 +256,7 @@
                         <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
                         <p>"Online classes were so convenient. I prepared for my board exams without leaving home. Highly recommended!"</p>
                         <div class="testimonial-author">
-                            <strong>Ahmed R.</strong><span>Student, Karachi</span>
+                            <strong>Ahmed R.</strong><span>Student, Faisalabad</span>
                         </div>
                     </div>
                     <div class="testimonial-card fade-up delay-2">
@@ -313,9 +314,9 @@
             <div class="footer-col">
                 <h4>Contact</h4>
                 <ul class="contact-list">
-                    <li>&#128231; info@hopeinternationalacademy.com</li>
-                    <li>&#128222; +92 300 1234567</li>
-                    <li>&#128205; Lahore, Pakistan</li>
+                    <li><a href="mailto:hopeinternationaltutoracademy@gmail.com">Email: hopeinternationaltutoracademy@gmail.com</a></li>
+                    <li><a href="tel:+923014809150">Phone: +92 301 4809150</a></li>
+                    <li>Locations: Lahore, Islamabad &amp; Faisalabad, Pakistan</li>
                 </ul>
             </div>
         </div>
@@ -327,6 +328,7 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script src="js/ai-effects.js"></script>
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>

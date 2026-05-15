@@ -4,6 +4,15 @@
 out/
 .vscode/
 
+### Node / Next.js ###
+node_modules/
+.next/
+dist/
+coverage/
+.env*.local
+.tools/
+.tmp-*.png
+
 ### OS ###
 .DS_Store
 Thumbs.db
