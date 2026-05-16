@@ -123,7 +123,7 @@ export default function HomePage() {
         className="galaxy-hero relative min-h-[88svh] overflow-hidden bg-cover bg-center pt-24 text-white sm:min-h-[92vh] sm:pt-32"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 78% 30%, rgba(125, 229, 255, 0.28), transparent 32%), radial-gradient(circle at 55% 62%, rgba(229, 168, 32, 0.2), transparent 34%), linear-gradient(90deg, rgba(2, 6, 23, 0.94), rgba(10, 18, 45, 0.76), rgba(3, 7, 18, 0.45)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1800&q=80')"
+            "radial-gradient(circle at 78% 30%, rgba(125, 229, 255, 0.28), transparent 32%), radial-gradient(circle at 55% 62%, rgba(229, 168, 32, 0.2), transparent 34%), linear-gradient(90deg, rgba(2, 6, 23, 0.94), rgba(10, 18, 45, 0.76), rgba(3, 7, 18, 0.45)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1400&q=65')"
         }}
       >
         <div className="ai-hero-grid" aria-hidden="true" />

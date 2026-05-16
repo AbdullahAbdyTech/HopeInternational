@@ -40,8 +40,12 @@ export function HeroParticles() {
     let stars: Star[] = [];
     let animationFrame = 0;
     let running = true;
+    let lastFrameTime = 0;
+    let resizeTimer = 0;
     const mouse = { x: -1000, y: -1000 };
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const mobileScreen = window.matchMedia("(max-width: 640px)").matches;
+    const animate = !reduceMotion && !mobileScreen;
     const palette = ["255,255,255", "248,231,179", "125,229,255", "244,170,255", "229,168,32"];
 
     const resize = () => {
@@ -58,8 +62,9 @@ export function HeroParticles() {
     const createParticles = () => {
       const width = canvas.clientWidth;
       const height = canvas.clientHeight;
-      const galaxyCount = Math.min(Math.floor((width * height) / 13500), 92);
-      const starCount = Math.min(Math.floor((width * height) / 8500), 150);
+      const density = mobileScreen ? 0.55 : 1;
+      const galaxyCount = Math.min(Math.floor(((width * height) / 22000) * density), mobileScreen ? 24 : 56);
+      const starCount = Math.min(Math.floor(((width * height) / 16000) * density), mobileScreen ? 42 : 90);
       const centerX = width * 0.7;
       const centerY = height * 0.43;
       const galaxyRadius = Math.max(width, height) * 0.5;
@@ -99,10 +104,19 @@ export function HeroParticles() {
       });
     };
 
-    const draw = () => {
+    const draw = (frameTime = 0) => {
       const width = canvas.clientWidth;
       const height = canvas.clientHeight;
-      const time = performance.now();
+      const targetFrameMs = 1000 / 30;
+
+      if (animate && frameTime - lastFrameTime < targetFrameMs) {
+        animationFrame = requestAnimationFrame(draw);
+        return;
+      }
+
+      lastFrameTime = frameTime;
+
+      const time = frameTime || performance.now();
       const centerX = width * 0.7;
       const centerY = height * 0.43;
       context.clearRect(0, 0, width, height);
@@ -182,22 +196,24 @@ export function HeroParticles() {
           context.stroke();
         }
 
-        const orbitDx = particle.x - centerX;
-        const orbitDy = (particle.y - centerY) / 0.48;
-        const orbitDistance = Math.max(Math.sqrt(orbitDx * orbitDx + orbitDy * orbitDy), 1);
-        particle.vx += (-orbitDy / orbitDistance) * 0.008;
-        particle.vy += (orbitDx / orbitDistance) * 0.0038;
-        particle.vx += particle.driftX;
-        particle.vy += particle.driftY;
-        particle.vx *= 0.988;
-        particle.vy *= 0.988;
-        particle.x += particle.vx;
-        particle.y += particle.vy;
+        if (animate) {
+          const orbitDx = particle.x - centerX;
+          const orbitDy = (particle.y - centerY) / 0.48;
+          const orbitDistance = Math.max(Math.sqrt(orbitDx * orbitDx + orbitDy * orbitDy), 1);
+          particle.vx += (-orbitDy / orbitDistance) * 0.008;
+          particle.vy += (orbitDx / orbitDistance) * 0.0038;
+          particle.vx += particle.driftX;
+          particle.vy += particle.driftY;
+          particle.vx *= 0.988;
+          particle.vy *= 0.988;
+          particle.x += particle.vx;
+          particle.y += particle.vy;
 
-        if (particle.x < -24) particle.x = width + 24;
-        if (particle.x > width + 24) particle.x = -24;
-        if (particle.y < -24) particle.y = height + 24;
-        if (particle.y > height + 24) particle.y = -24;
+          if (particle.x < -24) particle.x = width + 24;
+          if (particle.x > width + 24) particle.x = -24;
+          if (particle.y < -24) particle.y = height + 24;
+          if (particle.y > height + 24) particle.y = -24;
+        }
 
         const pulse = 0.7 + Math.sin(time * particle.twinkleSpeed + particle.phase) * 0.3;
         const glow = context.createRadialGradient(
@@ -223,7 +239,7 @@ export function HeroParticles() {
 
       context.restore();
 
-      if (running && !reduceMotion) {
+      if (running && animate && !document.hidden) {
         animationFrame = requestAnimationFrame(draw);
       }
     };
@@ -249,8 +265,24 @@ export function HeroParticles() {
     };
 
     const onResize = () => {
-      resize();
-      createParticles();
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => {
+        resize();
+        createParticles();
+        draw();
+      }, 120);
+    };
+
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(animationFrame);
+        return;
+      }
+
+      if (animate) {
+        lastFrameTime = 0;
+        animationFrame = requestAnimationFrame(draw);
+      }
     };
 
     resize();
@@ -260,13 +292,16 @@ export function HeroParticles() {
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mouseleave", onMouseLeave);
     window.addEventListener("resize", onResize);
+    document.addEventListener("visibilitychange", onVisibilityChange);
 
     return () => {
       running = false;
+      window.clearTimeout(resizeTimer);
       cancelAnimationFrame(animationFrame);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseleave", onMouseLeave);
       window.removeEventListener("resize", onResize);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
     };
   }, []);
 

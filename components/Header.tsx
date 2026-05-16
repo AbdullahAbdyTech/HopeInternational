@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Container } from "@/components/Container";
 import { mainNav, servicesNav, site } from "@/lib/site";
@@ -19,12 +19,33 @@ export function Header() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const isScrolledRef = useRef(false);
 
   useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 48);
+    let ticking = false;
+
+    const updateScrollState = () => {
+      const nextScrolled = window.scrollY > 48;
+
+      if (nextScrolled !== isScrolledRef.current) {
+        isScrolledRef.current = nextScrolled;
+        setIsScrolled(nextScrolled);
+      }
+
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(updateScrollState);
+    };
+
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -37,8 +58,8 @@ export function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-50 border-b transition duration-300 ${
         isScrolled
-          ? "border-black/5 bg-white/95 shadow-soft backdrop-blur-xl"
-          : "border-white/30 bg-white/80 backdrop-blur-xl"
+          ? "border-black/5 bg-white/95 shadow-soft"
+          : "border-white/30 bg-white/90"
       }`}
     >
       <Container className="flex h-16 items-center justify-between sm:h-20">

@@ -67,8 +67,7 @@ textarea {
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  mix-blend-mode: screen;
-  opacity: 1;
+  opacity: 0.82;
 }
 
 .galaxy-hero {
@@ -90,7 +89,6 @@ textarea {
     linear-gradient(115deg, transparent 0%, rgba(125, 229, 255, 0.08) 42%, rgba(248, 231, 179, 0.12) 50%, rgba(244, 170, 255, 0.08) 58%, transparent 78%),
     radial-gradient(ellipse at 72% 40%, rgba(255, 255, 255, 0.12), transparent 38%),
     radial-gradient(ellipse at 42% 68%, rgba(229, 168, 32, 0.11), transparent 34%);
-  mix-blend-mode: screen;
   opacity: 0.85;
 }
 
@@ -229,7 +227,6 @@ textarea {
     radial-gradient(ellipse at 78% 70%, rgba(229, 168, 32, 0.12), transparent 36%);
   content: "";
   inset: 0;
-  mix-blend-mode: screen;
   pointer-events: none;
   position: absolute;
 }
@@ -261,5 +258,20 @@ textarea {
 @media (max-width: 420px) {
   .galaxy-hero::before {
     opacity: 0.62;
+  }
+}
+
+@media (max-width: 640px) {
+  .galaxy-hero::after,
+  .text-luxury {
+    animation: none;
+  }
+
+  .hero-particles {
+    opacity: 0.52;
+  }
+
+  .ai-hero-grid {
+    opacity: 0.42;
   }
 }
