@@ -7,9 +7,15 @@ import { PageHero } from "@/components/PageHero";
 import { site, stats } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "About Us - Pakistan's Trusted Tutoring Academy",
+  title: "About Hope International Academy - Tutoring in Pakistan",
   description:
-    "Learn about Hope International Academy, our mission, values, and impact in Lahore, Islamabad, and Faisalabad.",
+    "Learn about Hope International Academy, a home tutoring and online tuition service helping students in Lahore, Islamabad, Faisalabad, and across Pakistan.",
+  keywords: [
+    "tutoring academy in Pakistan",
+    "home tuition academy Lahore",
+    "online tuition academy Pakistan",
+    "Hope International Academy"
+  ],
   alternates: {
     canonical: "/about"
   }
@@ -45,7 +51,7 @@ export default function AboutPage() {
             <p className="mt-4 text-ink-muted">
               At {site.name}, we believe every student deserves access to quality education. Our
               mission is to connect families with expert educators through personalized one-on-one
-              tutoring at home and online.
+              tutoring at home and online for Matric, FSc, O Levels, A Levels, and major school subjects.
             </p>
             <h2 className="mt-10 font-heading text-2xl font-extrabold text-ink sm:text-3xl">Our Story</h2>
             <p className="mt-4 text-ink-muted">

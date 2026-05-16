@@ -8,12 +8,13 @@ import { JsonLd } from "@/components/JsonLd";
 import { Reveal } from "@/components/Reveal";
 import { SectionHeader } from "@/components/SectionHeader";
 import { StatCounter } from "@/components/StatCounter";
-import { servicesNav, site, stats, subjects, testimonials, whyChooseUs } from "@/lib/site";
+import { classLevels, serviceAreas, servicesNav, site, stats, subjects, testimonials, whyChooseUs } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Best Home Tutor & Online Tutor in Pakistan",
+  title: "Home Tutor in Lahore, Islamabad & Faisalabad",
   description:
-    "Pakistan's trusted home tutoring and online tuition academy. Find verified tutors for Matric, FSc, O Levels, A Levels, and all major subjects.",
+    "Find verified home tutors in Lahore, Islamabad, and Faisalabad plus online tutors across Pakistan for Matric, FSc, O Levels, A Levels, math, science, and English.",
+  keywords: site.keywords,
   alternates: {
     canonical: "/"
   }
@@ -23,23 +24,41 @@ const services = [
   {
     title: "In-Home Tutoring",
     description:
-      "Professional tutors come to your home for focused one-on-one sessions in a comfortable learning environment.",
+      "Verified home tutors in Lahore, Islamabad, and Faisalabad for focused one-on-one tuition at your doorstep.",
     href: "/home-tutoring",
     icon: "home"
   },
   {
     title: "Online Tutoring",
     description:
-      "Live interactive classes from anywhere with screen sharing, digital whiteboards, and flexible scheduling.",
+      "Live online tuition in Pakistan for Matric, FSc, O Levels, A Levels, and major school subjects.",
     href: "/online-tutoring",
     icon: "online"
   },
   {
     title: "Exam Preparation",
     description:
-      "Focused preparation for board exams, entry tests, and competitive exams with proven study strategies.",
+      "Focused preparation for board exams, Cambridge exams, entry tests, and weak subject improvement.",
     href: "/contact",
     icon: "exam"
+  }
+];
+
+const homeFaqs = [
+  {
+    question: "Where can I find a home tutor in Lahore, Islamabad, or Faisalabad?",
+    answer:
+      "Hope International Academy connects families with verified home tutors in Lahore, Islamabad, and Faisalabad for one-on-one tuition at home."
+  },
+  {
+    question: "Do you offer online tuition in Pakistan?",
+    answer:
+      "Yes. Students can join live online tutoring from anywhere in Pakistan for Matric, FSc, O Levels, A Levels, IELTS, Quran learning, and major subjects."
+  },
+  {
+    question: "Which subjects do your tutors teach?",
+    answer:
+      "Our tutors cover math, physics, chemistry, biology, English, Urdu, computer science, accounting, economics, statistics, Islamiat, and Pakistan Studies."
   }
 ];
 
@@ -80,7 +99,23 @@ export default function HomePage() {
             ratingValue: "4.9",
             reviewCount: "3000",
             bestRating: "5"
-          }
+          },
+          sameAs: site.sameAs,
+          knowsAbout: site.keywords
+        }}
+      />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: homeFaqs.map((faq) => ({
+            "@type": "Question",
+            name: faq.question,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: faq.answer
+            }
+          }))
         }}
       />
 
@@ -100,11 +135,11 @@ export default function HomePage() {
               Enrolling Now
             </p>
             <h1 className="break-words font-heading text-4xl font-extrabold leading-tight sm:text-5xl md:text-7xl">
-              Pakistan&apos;s <span className="text-luxury">Home & Online</span> Tutoring Academy
+              Home Tutor in <span className="text-luxury">Lahore, Islamabad</span> & Faisalabad
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-8 text-white/80 sm:mt-6 md:text-xl">
-              Unlock your child&apos;s potential with personalized tutoring from qualified professionals.
-              Expert tutors for every subject and every grade.
+              Find verified home tutors and online tutors in Pakistan for Matric, FSc, O Levels,
+              A Levels, math, science, English, computer science, and exam preparation.
             </p>
             <div className="mt-8 flex flex-wrap gap-3 sm:mt-9 sm:gap-4">
               <ButtonLink href="/student-registration" size="large" className="w-full sm:w-auto">
@@ -157,6 +192,29 @@ export default function HomePage() {
 
       <section className="py-20">
         <Container>
+          <SectionHeader
+            eyebrow="Service Areas"
+            title="Home Tuition in Lahore, Islamabad & Faisalabad"
+            description="Local tutor matching for families who want reliable one-on-one support near their home, plus online tuition for students across Pakistan."
+          />
+          <div className="grid gap-6 lg:grid-cols-3">
+            {serviceAreas.map((area, index) => (
+              <Reveal key={area.city} delay={index * 80}>
+                <article className="elegant-card h-full rounded-3xl border border-black/5 bg-white p-6 shadow-soft sm:p-8">
+                  <h3 className="font-heading text-2xl font-bold text-ink">{area.title}</h3>
+                  <p className="mt-4 text-sm leading-7 text-ink-muted">{area.description}</p>
+                  <ButtonLink href="/student-registration" variant="outline" className="mt-7">
+                    Find a Tutor
+                  </ButtonLink>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="bg-surface py-20">
+        <Container>
           <SectionHeader eyebrow="Why Choose Us" title="The Hope International Difference" />
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {whyChooseUs.map((item, index) => (
@@ -172,15 +230,44 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="bg-surface py-20">
+      <section className="py-20">
         <Container>
-          <SectionHeader eyebrow="Subjects" title="We Cover All Major Subjects" />
+          <SectionHeader
+            eyebrow="Subjects & Classes"
+            title="Tutors for Matric, FSc, O/A Levels & All Major Subjects"
+            description="Get support for Pakistani boards, Cambridge classes, school homework, weak subject improvement, and exam preparation."
+          />
+          <div className="mb-8 flex flex-wrap justify-center gap-3">
+            {classLevels.map((level, index) => (
+              <Reveal key={level} delay={index * 30}>
+                <span className="inline-flex rounded-full border border-teal/10 bg-teal-soft px-4 py-2.5 text-sm font-bold text-teal shadow-soft sm:px-5">
+                  {level}
+                </span>
+              </Reveal>
+            ))}
+          </div>
           <div className="flex flex-wrap justify-center gap-3">
             {subjects.map((subject, index) => (
               <Reveal key={subject} delay={index * 35}>
                 <span className="inline-flex rounded-full border border-black/5 bg-white px-4 py-2.5 text-sm font-bold text-ink-muted shadow-soft transition hover:-translate-y-0.5 hover:text-teal sm:px-6 sm:py-3">
                   {subject}
                 </span>
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="bg-surface py-20">
+        <Container>
+          <SectionHeader eyebrow="FAQ" title="Home Tutor & Online Tuition Questions" />
+          <div className="mx-auto grid max-w-4xl gap-4">
+            {homeFaqs.map((faq, index) => (
+              <Reveal key={faq.question} delay={index * 70}>
+                <article className="rounded-2xl border border-black/5 bg-white p-5 shadow-soft sm:p-6">
+                  <h3 className="font-heading text-lg font-bold text-ink">{faq.question}</h3>
+                  <p className="mt-2 text-sm leading-7 text-ink-muted">{faq.answer}</p>
+                </article>
               </Reveal>
             ))}
           </div>

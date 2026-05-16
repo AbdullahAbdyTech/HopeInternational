@@ -11,10 +11,11 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Best Home Tutor & Online Tutor in Pakistan | Hope International Academy",
+    default: "Home Tutor in Lahore, Islamabad & Faisalabad | Hope International Academy",
     template: "%s | Hope International Academy"
   },
   description: site.description,
+  keywords: site.keywords,
   authors: [{ name: site.name }],
   robots: {
     index: true,
@@ -30,13 +31,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: site.url,
-    title: "Best Home Tutor & Online Tutor in Pakistan | Hope International Academy",
+    title: "Home Tutor in Lahore, Islamabad & Faisalabad | Hope International Academy",
     description: site.description,
     siteName: site.name
   },
   twitter: {
     card: "summary_large_image",
-    title: "Best Home Tutor & Online Tutor in Pakistan | Hope International Academy",
+    title: "Home Tutor in Lahore, Islamabad & Faisalabad | Hope International Academy",
     description: site.description
   }
 };

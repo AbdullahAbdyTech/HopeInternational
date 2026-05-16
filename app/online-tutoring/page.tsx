@@ -3,9 +3,18 @@ import type { Metadata } from "next";
 import { ServicePage } from "@/components/ServicePage";
 
 export const metadata: Metadata = {
-  title: "Best Online Tutor & Online Tuition in Pakistan",
+  title: "Online Tutor in Pakistan for Matric, FSc, O/A Levels",
   description:
-    "Live one-on-one online tuition for Matric, FSc, O Levels, A Levels, Cambridge, IELTS, Quran, math, science, English, and more.",
+    "Live one-on-one online tuition in Pakistan for Matric, FSc, O Levels, A Levels, Cambridge, IELTS, Quran, math, science, English, and more.",
+  keywords: [
+    "online tutor in Pakistan",
+    "online tuition in Pakistan",
+    "online math tutor Pakistan",
+    "online O Level tutor",
+    "online A Level tutor",
+    "Matric online tuition",
+    "FSc online tutor"
+  ],
   alternates: {
     canonical: "/online-tutoring"
   }
@@ -15,24 +24,51 @@ export default function OnlineTutoringPage() {
   return (
     <ServicePage
       eyebrow="Online Tutoring"
-      title="Online Tutoring Services"
-      description="Live interactive classes with expert tutors from the comfort of your home. Learn anytime, anywhere."
-      introTitle="Learn From Anywhere in Pakistan"
-      intro="Our online tutoring connects you with the best tutors regardless of your location. Video sessions, digital whiteboards, and screen sharing help us deliver focused support from any device."
+      title="Online Tutor in Pakistan for Every Major Subject"
+      description="Live interactive online tuition with expert tutors for school, college, Cambridge, and board exam students."
+      introTitle="One-on-One Online Tuition Across Pakistan"
+      intro="Our online tutoring service connects students with qualified tutors anywhere in Pakistan. Live video sessions, digital whiteboards, screen sharing, and structured lesson plans make online tuition effective for regular study support, weak subject improvement, and exam preparation."
       features={[
         "Live one-on-one video sessions with expert tutors",
         "Interactive digital whiteboard for real-time problem solving",
         "Screen sharing for computer science and IT subjects",
-        "Recorded sessions available for revision",
+        "Online tuition for Matric, FSc, ICS, O Levels, A Levels, IELTS, and Quran learning",
         "Flexible timing that works around your schedule",
-        "All subjects from primary to university level"
+        "Math, science, English, Urdu, computer science, accounting, economics, and more"
       ]}
       steps={[
         ["Register", "Complete the student registration form."],
-        ["Get Matched", "We assign the best tutor for your subject and level."],
+        ["Get Matched", "We assign a suitable online tutor for your subject, class, syllabus, and goals."],
         ["Connect", "Join live sessions from your phone, tablet, or computer."]
       ]}
       jsonLdName="Online Tutoring"
+      relatedKeywords={[
+        "online tutor in Pakistan",
+        "online tuition in Pakistan",
+        "online Matric tutor",
+        "online FSc tutor",
+        "online O Level tutor",
+        "online A Level tutor",
+        "online math tutor",
+        "online science tutor"
+      ]}
+      faqs={[
+        {
+          question: "Do you provide online tutors for students outside Lahore, Islamabad, and Faisalabad?",
+          answer:
+            "Yes. Online tutoring is available for students across Pakistan, including cities where in-home tutoring is not currently available."
+        },
+        {
+          question: "Which classes and subjects are available for online tuition?",
+          answer:
+            "We support primary classes, Matric, FSc, ICS, O Levels, A Levels, IELTS, Quran learning, and major subjects including math, science, English, Urdu, and computer science."
+        },
+        {
+          question: "How are online tutoring sessions conducted?",
+          answer:
+            "Sessions are conducted live through video calls with screen sharing, digital whiteboards, and direct interaction between student and tutor."
+        }
+      ]}
     />
   );
 }

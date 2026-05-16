@@ -4,6 +4,7 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import type { FormEvent } from "react";
 import { useState } from "react";
 
+import { sendFormEmail } from "@/lib/email";
 import { getDb } from "@/lib/firebase";
 
 export function ContactForm() {
@@ -17,13 +18,23 @@ export function ContactForm() {
 
     try {
       const form = event.currentTarget;
-      const payload = Object.fromEntries(new FormData(form).entries());
+      const payload = Object.fromEntries(new FormData(form).entries()) as Record<string, FormDataEntryValue>;
 
-      await addDoc(collection(getDb(), "contactMessages"), {
+      const saveSubmission = addDoc(collection(getDb(), "contactMessages"), {
         ...payload,
         source: "next-frontend",
         submittedAt: serverTimestamp()
+      }).catch((firestoreError) => {
+        console.warn("Firestore save failed after form submission.", firestoreError);
       });
+
+      await sendFormEmail({
+        formName: "Contact Message",
+        subject: "New Contact Message - Hope International Academy",
+        fields: payload
+      });
+
+      await saveSubmission;
 
       form.reset();
       setState("success");

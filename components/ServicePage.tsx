@@ -13,6 +13,11 @@ type ServicePageProps = {
   features: string[];
   steps: Array<[string, string]>;
   jsonLdName: string;
+  relatedKeywords?: string[];
+  faqs?: Array<{
+    question: string;
+    answer: string;
+  }>;
 };
 
 export function ServicePage({
@@ -23,7 +28,9 @@ export function ServicePage({
   intro,
   features,
   steps,
-  jsonLdName
+  jsonLdName,
+  relatedKeywords = [],
+  faqs = []
 }: ServicePageProps) {
   return (
     <>
@@ -36,12 +43,30 @@ export function ServicePage({
             "@type": "EducationalOrganization",
             name: site.name,
             email: site.email,
-            telephone: site.phone
+            telephone: site.phone,
+            url: site.url
           },
           description,
-          areaServed: site.locations
+          areaServed: site.locations,
+          serviceType: relatedKeywords.length ? relatedKeywords : undefined
         }}
       />
+      {faqs.length ? (
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: faqs.map((faq) => ({
+              "@type": "Question",
+              name: faq.question,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: faq.answer
+              }
+            }))
+          }}
+        />
+      ) : null}
       <PageHero eyebrow={eyebrow} title={title} description={description} />
       <section className="py-14 sm:py-20">
         <Container className="max-w-4xl">
@@ -69,6 +94,40 @@ export function ServicePage({
               </article>
             ))}
           </div>
+
+          {relatedKeywords.length ? (
+            <>
+              <h2 className="mt-10 font-heading text-2xl font-extrabold text-ink sm:mt-12 sm:text-3xl">
+                Tutoring Searches We Help With
+              </h2>
+              <div className="mt-6 flex flex-wrap gap-3">
+                {relatedKeywords.map((keyword) => (
+                  <span
+                    key={keyword}
+                    className="rounded-full border border-teal/15 bg-teal-soft px-4 py-2 text-sm font-semibold text-teal"
+                  >
+                    {keyword}
+                  </span>
+                ))}
+              </div>
+            </>
+          ) : null}
+
+          {faqs.length ? (
+            <>
+              <h2 className="mt-10 font-heading text-2xl font-extrabold text-ink sm:mt-12 sm:text-3xl">
+                Frequently Asked Questions
+              </h2>
+              <div className="mt-6 space-y-4">
+                {faqs.map((faq) => (
+                  <article key={faq.question} className="rounded-2xl border border-black/5 bg-surface p-5">
+                    <h3 className="font-heading text-lg font-bold text-ink">{faq.question}</h3>
+                    <p className="mt-2 text-sm leading-7 text-ink-muted">{faq.answer}</p>
+                  </article>
+                ))}
+              </div>
+            </>
+          ) : null}
 
           <div className="mt-12 text-center">
             <ButtonLink href="/student-registration" size="large" className="w-full sm:w-auto">

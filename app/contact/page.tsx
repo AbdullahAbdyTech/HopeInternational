@@ -8,9 +8,16 @@ import { SocialLinks } from "@/components/SocialLinks";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Contact Us - Get a Home Tutor Today",
+  title: "Contact for Home Tutor in Lahore, Islamabad & Faisalabad",
   description:
-    "Contact Hope International Academy for home tutor and online tutor inquiries in Lahore, Islamabad, and Faisalabad.",
+    "Contact Hope International Academy to hire a home tutor in Lahore, Islamabad, or Faisalabad, or to start online tuition anywhere in Pakistan.",
+  keywords: [
+    "contact home tutor Lahore",
+    "home tutor Islamabad contact",
+    "home tutor Faisalabad contact",
+    "online tutor Pakistan contact",
+    "Hope International Academy contact"
+  ],
   alternates: {
     canonical: "/contact"
   }
@@ -29,8 +36,8 @@ export default function ContactPage() {
       />
       <PageHero
         eyebrow="Contact"
-        title="Contact Us"
-        description="Have a question? Reach out and we will respond as soon as possible."
+        title="Contact Hope International Academy"
+        description="Need a home tutor in Lahore, Islamabad, or Faisalabad, or online tuition in Pakistan? Reach out and we will respond as soon as possible."
       />
       <section className="bg-surface py-14 sm:py-20">
         <Container className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
@@ -39,7 +46,7 @@ export default function ContactPage() {
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-soft">Direct Contact</p>
               <h2 className="mt-3 font-heading text-3xl font-extrabold">Get In Touch</h2>
               <p className="mt-3 text-sm leading-7 text-white/75">
-                Contact us for student registration, tutor applications, or service questions.
+                Contact us for home tutor matching, online tuition, student registration, tutor applications, or service questions.
               </p>
             </div>
             <div className="space-y-4 p-6 md:p-8">

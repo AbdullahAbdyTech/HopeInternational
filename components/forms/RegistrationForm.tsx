@@ -5,6 +5,7 @@ import type { FormEvent } from "react";
 import { useMemo, useState } from "react";
 
 import type { FormField } from "@/components/forms/FormTypes";
+import { sendFormEmail } from "@/lib/email";
 import { getDb } from "@/lib/firebase";
 
 type RegistrationFormProps = {
@@ -13,6 +14,8 @@ type RegistrationFormProps = {
   fields: FormField[];
   submitLabel: string;
   successMessage: string;
+  emailSubject: string;
+  emailFormName: string;
 };
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
@@ -22,7 +25,9 @@ export function RegistrationForm({
   collectionName,
   fields,
   submitLabel,
-  successMessage
+  successMessage,
+  emailSubject,
+  emailFormName
 }: RegistrationFormProps) {
   const [state, setState] = useState<SubmitState>("idle");
   const [error, setError] = useState("");
@@ -42,13 +47,23 @@ export function RegistrationForm({
     try {
       const form = event.currentTarget;
       const formData = new FormData(form);
-      const payload = Object.fromEntries(formData.entries());
+      const payload = Object.fromEntries(formData.entries()) as Record<string, FormDataEntryValue>;
 
-      await addDoc(collection(getDb(), collectionName), {
+      const saveSubmission = addDoc(collection(getDb(), collectionName), {
         ...payload,
         source: "next-frontend",
         submittedAt: serverTimestamp()
+      }).catch((firestoreError) => {
+        console.warn("Firestore save failed after form submission.", firestoreError);
       });
+
+      await sendFormEmail({
+        formName: emailFormName,
+        subject: emailSubject,
+        fields: payload
+      });
+
+      await saveSubmission;
 
       form.reset();
       setState("success");

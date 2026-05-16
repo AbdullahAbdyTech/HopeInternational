@@ -83,6 +83,50 @@ const counterObserver = new IntersectionObserver((entries) => {
 const statsSection = document.getElementById('stats');
 if (statsSection) counterObserver.observe(statsSection);
 
+const FORM_EMAIL_RECIPIENT = 'hopeinternationaltutoracademy@gmail.com';
+const FORM_EMAIL_ENDPOINT = 'https://flowform.to/submit';
+
+function getFormType(form) {
+    if (form.id === 'studentForm') return 'Student Registration';
+    if (form.id === 'teacherForm') return 'Teacher Registration';
+    return 'Contact Message';
+}
+
+function getFormSubject(form) {
+    if (form.id === 'studentForm') return 'New Student Registration - Hope International Academy';
+    if (form.id === 'teacherForm') return 'New Teacher Application - Hope International Academy';
+    return 'New Contact Message - Hope International Academy';
+}
+
+function sendFormEmail(form, data) {
+    const emailData = new FormData();
+
+    Object.keys(data).forEach(key => {
+        emailData.append(key, data[key]);
+    });
+
+    emailData.append('_to', FORM_EMAIL_RECIPIENT);
+    emailData.append('formType', getFormType(form));
+    emailData.append('_subject', getFormSubject(form));
+
+    if (data.email) {
+        emailData.append('_replyto', data.email);
+    }
+
+    return fetch(FORM_EMAIL_ENDPOINT, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json'
+        },
+        body: emailData
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error('Email notification failed');
+        }
+        return response;
+    });
+}
+
 // Form validation (for registration pages)
 document.addEventListener('DOMContentLoaded', () => {
     const forms = document.querySelectorAll('form[data-validate]');
@@ -108,6 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             if (valid) {
                 const btn = form.querySelector('button[type="submit"]');
+                const originalText = btn.textContent;
                 btn.textContent = 'Submitting...';
                 btn.disabled = true;
 
@@ -115,40 +160,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = {};
                 new FormData(form).forEach((v, k) => { data[k] = v; });
                 data.submittedAt = new Date().toISOString();
+                data.source = 'static-html';
 
                 // Save to Firestore if available
                 var collection = form.id === 'studentForm' ? 'studentRegistrations'
                     : form.id === 'teacherForm' ? 'teacherRegistrations' : null;
 
-                if (window.db && collection) {
-                    window.db.collection(collection).add(data)
-                        .then(() => {
-                            btn.textContent = 'Submitted Successfully!';
-                            btn.style.background = '#22c55e';
-                            form.reset();
-                        })
-                        .catch(() => {
-                            btn.textContent = 'Error! Try Again';
-                            btn.style.background = '#e74c3c';
+                const saveSubmission = window.db && collection
+                    ? window.db.collection(collection).add(data).catch(error => {
+                        console.warn('Firestore save failed after form submission.', error);
+                    })
+                    : Promise.resolve();
+
+                sendFormEmail(form, data)
+                    .then(() => saveSubmission)
+                    .then(() => {
+                        btn.textContent = 'Submitted Successfully!';
+                        btn.style.background = '#22c55e';
+                        form.reset();
+                    })
+                    .catch(() => {
+                        btn.textContent = 'Error! Try Again';
+                        btn.style.background = '#e74c3c';
+                    })
+                    .finally(() => {
+                        setTimeout(() => {
+                            btn.textContent = originalText;
+                            btn.style.background = '';
                             btn.disabled = false;
-                        })
-                        .finally(() => {
-                            setTimeout(() => {
-                                btn.textContent = 'Submit Registration';
-                                btn.style.background = '';
-                                btn.disabled = false;
-                            }, 3000);
-                        });
-                } else {
-                    btn.textContent = 'Submitted Successfully!';
-                    btn.style.background = '#22c55e';
-                    form.reset();
-                    setTimeout(() => {
-                        btn.textContent = 'Submit';
-                        btn.style.background = '';
-                        btn.disabled = false;
-                    }, 3000);
-                }
+                        }, 3000);
+                    });
             }
         });
     });

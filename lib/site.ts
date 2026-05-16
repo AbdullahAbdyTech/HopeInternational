@@ -16,14 +16,32 @@ export const site = {
   name: "Hope International Academy",
   url: "https://hopeinternationalacademy.com",
   description:
-    "Pakistan's trusted home and online tutoring academy for Matric, FSc, O Levels, A Levels, and all major subjects.",
+    "Find verified home tutors and online tutors in Lahore, Islamabad, Faisalabad, and across Pakistan for Matric, FSc, O Levels, A Levels, and all major subjects.",
   email: "hopeinternationaltutoracademy@gmail.com",
   phone: "+92 301 4809150",
   phoneHref: "tel:+923014809150",
   whatsappHref: "https://wa.me/923014809150",
   address: "Lahore, Islamabad & Faisalabad, Pakistan",
   locations: ["Lahore", "Islamabad", "Faisalabad"],
-  founded: "2020"
+  founded: "2020",
+  sameAs: [
+    "https://www.facebook.com/share/1Au3StHi1W/",
+    "https://www.instagram.com/hitutoracademy"
+  ],
+  keywords: [
+    "home tutor in Lahore",
+    "home tutor in Islamabad",
+    "home tutor in Faisalabad",
+    "online tutor in Pakistan",
+    "home tuition in Lahore",
+    "online tuition in Pakistan",
+    "Matric tutor",
+    "FSc tutor",
+    "O Level tutor",
+    "A Level tutor",
+    "home tutor jobs in Pakistan",
+    "tuition teacher jobs in Lahore"
+  ]
 };
 
 export const pages: SitePage[] = [
@@ -68,6 +86,39 @@ export const subjects = [
   "Accounting",
   "Economics",
   "Statistics"
+];
+
+export const classLevels = [
+  "Primary classes",
+  "Middle school",
+  "Matric",
+  "FSc",
+  "ICS",
+  "O Levels",
+  "A Levels",
+  "Entry tests",
+  "University courses"
+];
+
+export const serviceAreas = [
+  {
+    city: "Lahore",
+    title: "Home Tutor in Lahore",
+    description:
+      "Qualified male and female tutors for Lahore families, including school, college, O Level, A Level, Matric, and FSc tuition."
+  },
+  {
+    city: "Islamabad",
+    title: "Home Tutor in Islamabad",
+    description:
+      "Personalized home tuition and online classes for students in Islamabad who need subject support, exam preparation, or regular study help."
+  },
+  {
+    city: "Faisalabad",
+    title: "Home Tutor in Faisalabad",
+    description:
+      "Verified tutors in Faisalabad for science, math, English, computer science, board exam preparation, and one-on-one learning."
+  }
 ];
 
 export const cities = [
