@@ -388,16 +388,12 @@
     // ─── INITIALIZE ALL EFFECTS ───
     function init() {
         initParticles();
-        initCursorGlow();
         initTiltCards();
         initMagneticButtons();
-        initParallaxOrbs();
         initTextReveal();
-        initMorphingBlobs();
         initCardShimmer();
         initSubjectPillsAnimation();
         initStatGlow();
-        initGlowDividers();
     }
 
     if (document.readyState === 'loading') {

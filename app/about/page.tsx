@@ -7,13 +7,15 @@ import { PageHero } from "@/components/PageHero";
 import { site, stats } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "About Hope International Tutor Academy - Tutoring in Pakistan",
+  title: "About Hope International Tutor Academy - Worldwide Home & Online Tutoring",
   description:
-    "Learn about Hope International Tutor Academy, a home tutoring and online tuition service helping students in Lahore, Islamabad, Faisalabad, and across Pakistan.",
+    "Learn about Hope International Tutor Academy, a home tutoring and online tuition service helping students worldwide in Pakistan, Saudi Arabia, UAE, UK, USA, Canada, Australia, and more.",
   keywords: [
-    "tutoring academy in Pakistan",
-    "home tuition academy Lahore",
-    "online tuition academy Pakistan",
+    "worldwide home tutoring academy",
+    "worldwide online tutoring academy",
+    "home tuition academy worldwide",
+    "online tuition Saudi Arabia",
+    "online tuition UAE",
     "Hope International Tutor Academy"
   ],
   alternates: {
@@ -23,7 +25,7 @@ export const metadata: Metadata = {
 
 const values = [
   "Excellence in tutor selection and teaching quality.",
-  "Accessible education for families across Pakistan.",
+  "Accessible education for families worldwide.",
   "Personalized support for every student's learning style.",
   "Transparent processes that build parent confidence."
 ];
@@ -36,13 +38,13 @@ export default function AboutPage() {
           "@context": "https://schema.org",
           "@type": "AboutPage",
           name: "About Hope International Tutor Academy",
-          description: "Learn about our mission to provide quality education in Lahore, Islamabad, and Faisalabad."
+          description: "Learn about our mission to provide quality home tutoring and online tutoring worldwide."
         }}
       />
       <PageHero
         eyebrow="About Us"
         title="About Hope International Tutor Academy"
-        description="Empowering students in Lahore, Islamabad, and Faisalabad with quality, personalized education since 2020."
+        description="Empowering students in Pakistan, Saudi Arabia, UAE, UK, USA, Canada, Australia, and other countries with quality personalized education since 2020."
       />
       <section className="py-14 sm:py-20">
         <Container className="grid gap-10 lg:grid-cols-[1fr_0.78fr]">
@@ -56,9 +58,9 @@ export default function AboutPage() {
             <h2 className="mt-10 font-heading text-2xl font-extrabold text-ink sm:text-3xl">Our Story</h2>
             <p className="mt-4 text-ink-muted">
               Founded in 2020, Hope International Tutor Academy started with a simple goal: make quality
-              tutoring accessible and affordable for families in our service locations. What began as a small
+              tutoring accessible and affordable for families wherever they study. What began as a small
               team of educators has grown into a network of 1000+ verified tutors serving students in
-              Lahore, Islamabad, and Faisalabad.
+              Pakistan, Saudi Arabia, UAE, UK, USA, Canada, Australia, and other major countries.
             </p>
             <h2 className="mt-10 font-heading text-2xl font-extrabold text-ink sm:text-3xl">Our Values</h2>
             <ul className="mt-5 space-y-3 text-ink-muted">
@@ -72,8 +74,8 @@ export default function AboutPage() {
           <aside className="rounded-3xl bg-gradient-to-br from-teal-dark to-teal p-6 text-white shadow-elevated sm:p-8">
             <h2 className="font-heading text-2xl font-extrabold sm:text-3xl">Our Impact</h2>
             <p className="mt-4 text-white/75">
-              Over 3,000 students have improved their academic performance through our tutoring
-              services, with a 4.9/5 satisfaction rating from families.
+              Over 3,000 students have received study support through our home tutoring and online
+              tutoring services worldwide.
             </p>
             <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
               {stats.map((stat) => (

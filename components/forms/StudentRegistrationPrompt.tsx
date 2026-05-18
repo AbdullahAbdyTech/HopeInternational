@@ -77,10 +77,10 @@ export function StudentRegistrationPrompt() {
         <div className="mb-6 pr-10">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold">Student Registration</p>
           <h2 id="student-registration-prompt-title" className="mt-2 font-heading text-2xl font-extrabold text-ink sm:text-3xl">
-            Find a Home Tutor or Online Tutor
+            Find Home & Online Tutors Worldwide
           </h2>
           <p className="mt-2 text-sm leading-7 text-ink-muted">
-            Submit your details to get matched with a verified tutor. You can close this form to continue to the homepage.
+            Submit your details to get matched with a verified tutor in your country or location. You can close this form to continue to the homepage.
           </p>
         </div>
 

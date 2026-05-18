@@ -32,7 +32,7 @@ export function Footer() {
             </span>
           </Link>
           <p className="mt-5 max-w-sm text-sm leading-7">
-            Providing quality education through personalized tutoring across Pakistan since {site.founded}.
+            Providing quality education through home tutoring and online tutoring worldwide since {site.founded}.
           </p>
         </div>
 

@@ -11,9 +11,9 @@ import { StatCounter } from "@/components/StatCounter";
 import { classLevels, serviceAreas, servicesNav, site, stats, subjects, testimonials, whyChooseUs } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Home Tutor in Lahore, Islamabad & Faisalabad | Hope International Tutor Academy",
+  title: "Home & Online Tutors Worldwide | Hope International Tutor Academy",
   description:
-    "Find verified home tutors in Lahore, Islamabad, and Faisalabad plus online tutors across Pakistan for Matric, FSc, O Levels, A Levels, math, science, and English.",
+    "Find verified home and online tutors worldwide for students in Pakistan, Saudi Arabia, UAE, UK, USA, Canada, Australia, and more.",
   keywords: site.keywords,
   alternates: {
     canonical: "/"
@@ -24,14 +24,14 @@ const services = [
   {
     title: "In-Home Tutoring",
     description:
-      "Verified home tutors in Lahore, Islamabad, and Faisalabad for focused one-on-one tuition at your doorstep.",
+      "Verified home tutors worldwide for one-on-one learning at home in Pakistan, Saudi Arabia, UAE, UK, USA, Canada, Australia, and other major countries.",
     href: "/home-tutoring",
     icon: "home"
   },
   {
     title: "Online Tutoring",
     description:
-      "Live online tuition in Pakistan for Matric, FSc, O Levels, A Levels, and major school subjects.",
+      "Live online tuition worldwide for students in Pakistan, Saudi Arabia, UAE, UK, USA, Canada, Australia, and other major countries.",
     href: "/online-tutoring",
     icon: "online"
   },
@@ -46,14 +46,14 @@ const services = [
 
 const homeFaqs = [
   {
-    question: "Where can I find a home tutor in Lahore, Islamabad, or Faisalabad?",
+    question: "Where can I find home and online tutors?",
     answer:
-      "Hope International Tutor Academy connects families with verified home tutors in Lahore, Islamabad, and Faisalabad for one-on-one tuition at home."
+      "Hope International Tutor Academy connects families with verified home and online tutors worldwide."
   },
   {
-    question: "Do you offer online tuition in Pakistan?",
+    question: "Do you offer home and online tuition worldwide?",
     answer:
-      "Yes. Students can join live online tutoring from anywhere in Pakistan for Matric, FSc, O Levels, A Levels, IELTS, Quran learning, and major subjects."
+      "Yes. Students can request home tutoring or live online tutoring from Pakistan, Saudi Arabia, UAE, UK, USA, Canada, Australia, Qatar, Oman, Kuwait, and other countries."
   },
   {
     question: "Which subjects do your tutors teach?",
@@ -76,10 +76,13 @@ export default function HomePage() {
           telephone: site.phone,
           address: {
             "@type": "PostalAddress",
-            addressLocality: site.locations.join(", "),
+            addressLocality: "Pakistan",
             addressCountry: "PK"
           },
-          areaServed: site.locations,
+          areaServed: site.locations.map((location) => ({
+            "@type": "Country",
+            name: location
+          })),
           contactPoint: {
             "@type": "ContactPoint",
             telephone: site.phone,
@@ -93,12 +96,6 @@ export default function HomePage() {
               "@type": "Offer",
               itemOffered: { "@type": "Service", name: service.label }
             }))
-          },
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: "4.9",
-            reviewCount: "3000",
-            bestRating: "5"
           },
           sameAs: site.sameAs,
           knowsAbout: site.keywords
@@ -135,11 +132,11 @@ export default function HomePage() {
               Enrolling Now
             </p>
             <h1 className="break-words font-heading text-4xl font-extrabold leading-tight sm:text-5xl md:text-7xl">
-              Home Tutor in <span className="text-luxury">Lahore, Islamabad</span> & Faisalabad
-            </h1>
-            <p className="mt-5 max-w-2xl text-base leading-8 text-white/80 sm:mt-6 md:text-xl">
-              Find verified home tutors and online tutors in Pakistan for Matric, FSc, O Levels,
-              A Levels, math, science, English, computer science, and exam preparation.
+                Home & Online Tutors <span className="text-luxury">Worldwide</span>
+              </h1>
+              <p className="mt-5 max-w-2xl text-base leading-8 text-white/80 sm:mt-6 md:text-xl">
+                Find verified home and online tutors for Pakistan, Saudi Arabia, UAE, UK, USA,
+                Canada, Australia, Qatar, Oman, Kuwait, and other major countries.
             </p>
             <div className="mt-8 flex flex-wrap gap-3 sm:mt-9 sm:gap-4">
               <ButtonLink href="/student-registration" size="large" className="w-full sm:w-auto">
@@ -150,7 +147,7 @@ export default function HomePage() {
               </ButtonLink>
             </div>
             <div className="galaxy-trust mt-8 inline-flex max-w-full flex-wrap justify-center rounded-full border border-white/20 bg-white/10 px-4 py-3 text-center text-sm font-semibold text-white/80 backdrop-blur sm:mt-9 sm:px-5">
-              Trusted by <span className="px-1 text-white">3,000+</span> families across Pakistan
+              Trusted by <span className="px-1 text-white">3,000+</span> families worldwide
             </div>
           </Reveal>
         </Container>
@@ -193,9 +190,9 @@ export default function HomePage() {
       <section className="py-20">
         <Container>
           <SectionHeader
-            eyebrow="Service Areas"
-            title="Home Tuition in Lahore, Islamabad & Faisalabad"
-            description="Local tutor matching for families who want reliable one-on-one support near their home, plus online tuition for students across Pakistan."
+                eyebrow="Service Areas"
+                title="Tutoring in Pakistan, Saudi Arabia & Worldwide"
+                description="Home tutoring and online tutoring are available for families in Pakistan, Saudi Arabia, UAE, UK, USA, Canada, Australia, Qatar, Oman, Kuwait, and other countries."
           />
           <div className="grid gap-6 lg:grid-cols-3">
             {serviceAreas.map((area, index) => (
@@ -235,7 +232,7 @@ export default function HomePage() {
           <SectionHeader
             eyebrow="Subjects & Classes"
             title="Tutors for Matric, FSc, O/A Levels & All Major Subjects"
-            description="Get support for Pakistani boards, Cambridge classes, school homework, weak subject improvement, and exam preparation."
+                description="Get support for local boards, Cambridge classes, school homework, weak subject improvement, and exam preparation."
           />
           <div className="mb-8 flex flex-wrap justify-center gap-3">
             {classLevels.map((level, index) => (
@@ -276,20 +273,27 @@ export default function HomePage() {
 
       <section className="py-20">
         <Container>
-          <SectionHeader eyebrow="Testimonials" title="What Parents & Students Say" />
+          <SectionHeader
+            eyebrow="Family Feedback"
+            title="What Families Usually Need Help With"
+            description="We keep this section focused on practical service expectations parents and students discuss with us, and publish named reviews only with permission."
+          />
           <div className="grid gap-6 lg:grid-cols-3">
             {testimonials.map((testimonial, index) => (
-              <Reveal key={testimonial.name} delay={index * 90}>
+              <Reveal key={testimonial.title} delay={index * 90}>
                 <article className="elegant-card h-full rounded-3xl border border-black/5 bg-surface-warm p-6 shadow-soft sm:p-8">
-                  <p className="text-lg tracking-[0.15em] text-gold">*****</p>
-                  <p className="mt-5 text-sm leading-7 text-ink-muted">&quot;{testimonial.quote}&quot;</p>
+                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-gold">{testimonial.context}</p>
+                  <h3 className="mt-4 font-heading text-xl font-bold text-ink">{testimonial.title}</h3>
+                  <p className="mt-4 text-sm leading-7 text-ink-muted">{testimonial.detail}</p>
                   <div className="mt-6 border-t border-black/10 pt-5">
-                    <p className="font-bold text-ink">{testimonial.name}</p>
-                    <p className="text-sm text-ink-muted">{testimonial.role}</p>
+                    <p className="text-sm font-semibold text-ink-muted">Published with parent/student permission only.</p>
                   </div>
                 </article>
               </Reveal>
             ))}
+          </div>
+          <div className="mx-auto mt-8 max-w-2xl rounded-2xl border border-teal/10 bg-teal-soft px-5 py-4 text-center text-sm font-semibold text-teal">
+            Have genuine feedback from a parent or student? Share it through the contact form so it can be published with consent.
           </div>
         </Container>
       </section>

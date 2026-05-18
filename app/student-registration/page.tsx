@@ -6,16 +6,18 @@ import { PageHero } from "@/components/PageHero";
 import { studentFields } from "@/lib/forms";
 
 export const metadata: Metadata = {
-  title: "Find a Home Tutor in Pakistan - Student Registration",
+  title: "Find Home & Online Tutors Worldwide - Student Registration",
   description:
-    "Register to find a verified home tutor in Lahore, Islamabad, or Faisalabad, or get online tuition in Pakistan for Matric, FSc, O Levels, and A Levels.",
+    "Register to find a verified home tutor or online tutor worldwide for Matric, FSc, O Levels, A Levels, IELTS, Quran learning, and more.",
   keywords: [
-    "find home tutor in Pakistan",
+    "find home tutor worldwide",
+    "find online tutor worldwide",
     "student registration for home tuition",
-    "home tutor in Lahore",
-    "home tutor in Islamabad",
-    "home tutor in Faisalabad",
-    "online tuition registration Pakistan"
+    "home tutor in Saudi Arabia",
+    "home tutor in UAE",
+    "online tutor in Saudi Arabia",
+    "online tutor in UAE",
+    "online tuition registration worldwide"
   ],
   alternates: {
     canonical: "/student-registration"
@@ -27,8 +29,8 @@ export default function StudentRegistrationPage() {
     <>
       <PageHero
         eyebrow="Student Registration"
-        title="Find a Home Tutor or Online Tutor in Pakistan"
-        description="Register for home tuition in Lahore, Islamabad, or Faisalabad, or online tuition anywhere in Pakistan."
+        title="Find Home & Online Tutors Worldwide"
+        description="Register for home tuition or online tuition in Pakistan, Saudi Arabia, UAE, UK, USA, Canada, Australia, Qatar, Oman, Kuwait, and other countries."
       />
       <section className="bg-surface py-14 sm:py-20">
         <Container>
@@ -45,8 +47,8 @@ export default function StudentRegistrationPage() {
           </div>
           <div className="mx-auto mt-10 grid max-w-4xl gap-4 md:grid-cols-3">
             {[
-              ["Home Tuition", "Get a verified tutor at your home in Lahore, Islamabad, or Faisalabad."],
-              ["Online Tuition", "Study live with an online tutor from anywhere in Pakistan."],
+              ["Home Tuition", "Get a verified tutor at your home in Pakistan, Saudi Arabia, UAE, UK, USA, Canada, Australia, and other major countries."],
+              ["Online Tuition", "Study live with an online tutor from Pakistan, Saudi Arabia, UAE, UK, USA, Canada, Australia, and other countries."],
               ["Exam Support", "Prepare for Matric, FSc, O Levels, A Levels, and school assessments."]
             ].map(([title, detail]) => (
               <article key={title} className="rounded-2xl border border-black/5 bg-white p-5 shadow-soft">

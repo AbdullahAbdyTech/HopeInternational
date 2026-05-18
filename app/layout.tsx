@@ -12,7 +12,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Home Tutor in Lahore, Islamabad & Faisalabad | Hope International Tutor Academy",
+    default: "Home & Online Tutors Worldwide | Hope International Tutor Academy",
     template: "%s | Hope International Tutor Academy"
   },
   description: site.description,
@@ -37,13 +37,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: site.url,
-    title: "Home Tutor in Lahore, Islamabad & Faisalabad | Hope International Tutor Academy",
+    title: "Home & Online Tutors Worldwide | Hope International Tutor Academy",
     description: site.description,
     siteName: site.name
   },
   twitter: {
     card: "summary_large_image",
-    title: "Home Tutor in Lahore, Islamabad & Faisalabad | Hope International Tutor Academy",
+    title: "Home & Online Tutors Worldwide | Hope International Tutor Academy",
     description: site.description
   }
 };

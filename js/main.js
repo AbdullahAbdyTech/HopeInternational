@@ -123,8 +123,8 @@ function createStudentRegistrationPrompt() {
             </button>
             <div class="student-prompt-head">
                 <span>Student Registration</span>
-                <h2 id="studentPromptTitle">Find a Home Tutor or Online Tutor</h2>
-                <p>Submit your details to get matched with a verified tutor. You can close this form to continue to the homepage.</p>
+                <h2 id="studentPromptTitle">Find Home & Online Tutors Worldwide</h2>
+                <p>Submit your details to get matched with a verified tutor in your country or location. You can close this form to continue to the homepage.</p>
             </div>
             <form id="studentPromptForm" data-validate>
                 <div class="form-row">
@@ -135,15 +135,7 @@ function createStudentRegistrationPrompt() {
                     <div class="form-group"><label for="promptEmail">Email Address *</label><input type="email" id="promptEmail" name="email" required placeholder="email@example.com"></div>
                     <div class="form-group"><label for="promptPhone">Phone Number *</label><input type="tel" id="promptPhone" name="phone" required placeholder="+92 3XX XXXXXXX"></div>
                 </div>
-                <div class="form-group"><label for="promptAddress">Address *</label><textarea id="promptAddress" name="address" required placeholder="House no, area, city..."></textarea></div>
                 <div class="form-row">
-                    <div class="form-group">
-                        <label for="promptCity">City *</label>
-                        <select id="promptCity" name="city" required>
-                            <option value="">Select City</option>
-                            <option>Lahore</option><option>Islamabad</option><option>Faisalabad</option><option>Other</option>
-                        </select>
-                    </div>
                     <div class="form-group">
                         <label for="promptGrade">Grade/Class *</label>
                         <select id="promptGrade" name="grade" required>
@@ -151,7 +143,15 @@ function createStudentRegistrationPrompt() {
                             <option>Play Group / Nursery</option><option>KG / Prep</option><option>Class 1-5</option><option>Class 6-8</option><option>Class 9-10 (Matric)</option><option>Class 11-12 (FSc/ICS)</option><option>O-Levels</option><option>A-Levels</option><option>University</option>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="promptCity">Country / Location *</label>
+                        <select id="promptCity" name="city" required>
+                            <option value="">Select Country / Location</option>
+                            <option>Pakistan</option><option>Saudi Arabia</option><option>United Arab Emirates</option><option>United Kingdom</option><option>United States</option><option>Canada</option><option>Australia</option><option>Qatar</option><option>Oman</option><option>Kuwait</option><option>Other Country</option>
+                        </select>
+                    </div>
                 </div>
+                <div class="form-group"><label for="promptAddress">Address *</label><textarea id="promptAddress" name="address" required placeholder="House no, area, city, country..."></textarea></div>
                 <div class="form-group"><label for="promptSubjects">Subjects Needed *</label><input type="text" id="promptSubjects" name="subjects" required placeholder="e.g. Mathematics, Physics, English"></div>
                 <div class="form-group">
                     <label for="promptTutoringType">Tutoring Type *</label>

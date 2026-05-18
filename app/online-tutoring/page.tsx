@@ -3,11 +3,16 @@ import type { Metadata } from "next";
 import { ServicePage } from "@/components/ServicePage";
 
 export const metadata: Metadata = {
-  title: "Online Tutor in Pakistan for Matric, FSc, O/A Levels",
+  title: "Online Tutor Worldwide for Matric, FSc, O/A Levels",
   description:
-    "Live one-on-one online tuition in Pakistan for Matric, FSc, O Levels, A Levels, Cambridge, IELTS, Quran, math, science, English, and more.",
+    "Live one-on-one online tuition worldwide for students in Pakistan, Saudi Arabia, UAE, UK, USA, Canada, Australia, Qatar, Oman, Kuwait, and more.",
   keywords: [
     "online tutor in Pakistan",
+    "online tutor in Saudi Arabia",
+    "online tutor in UAE",
+    "online tutor in UK",
+    "online tutor in USA",
+    "online tutor worldwide",
     "online tuition in Pakistan",
     "online math tutor Pakistan",
     "online O Level tutor",
@@ -24,10 +29,10 @@ export default function OnlineTutoringPage() {
   return (
     <ServicePage
       eyebrow="Online Tutoring"
-      title="Online Tutor in Pakistan for Every Major Subject"
-      description="Live interactive online tuition with expert tutors for school, college, Cambridge, and board exam students."
-      introTitle="One-on-One Online Tuition Across Pakistan"
-      intro="Our online tutoring service connects students with qualified tutors anywhere in Pakistan. Live video sessions, digital whiteboards, screen sharing, and structured lesson plans make online tuition effective for regular study support, weak subject improvement, and exam preparation."
+      title="Online Tutor Worldwide for Every Major Subject"
+      description="Live interactive online tuition with expert tutors for students in Pakistan, Saudi Arabia, UAE, UK, USA, Canada, Australia, and other major countries."
+      introTitle="One-on-One Online Tuition Worldwide"
+      intro="Our online tutoring service connects students with qualified tutors in Pakistan, Saudi Arabia, UAE, UK, USA, Canada, Australia, Qatar, Oman, Kuwait, and other countries. Live video sessions, digital whiteboards, screen sharing, and structured lesson plans make online tuition effective for regular study support, weak subject improvement, and exam preparation."
       features={[
         "Live one-on-one video sessions with expert tutors",
         "Interactive digital whiteboard for real-time problem solving",
@@ -44,6 +49,9 @@ export default function OnlineTutoringPage() {
       jsonLdName="Online Tutoring"
       relatedKeywords={[
         "online tutor in Pakistan",
+        "online tutor in Saudi Arabia",
+        "online tutor in UAE",
+        "online tutor worldwide",
         "online tuition in Pakistan",
         "online Matric tutor",
         "online FSc tutor",
@@ -54,9 +62,9 @@ export default function OnlineTutoringPage() {
       ]}
       faqs={[
         {
-          question: "Do you provide online tutors for students outside Lahore, Islamabad, and Faisalabad?",
+          question: "Do you provide online tutors worldwide?",
           answer:
-            "Yes. Online tutoring is available for students across Pakistan, including cities where in-home tutoring is not currently available."
+            "Yes. Online tutoring is available for students in Pakistan, Saudi Arabia, UAE, UK, USA, Canada, Australia, Qatar, Oman, Kuwait, and other countries."
         },
         {
           question: "Which classes and subjects are available for online tuition?",

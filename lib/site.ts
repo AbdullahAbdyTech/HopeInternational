@@ -16,31 +16,54 @@ export const site = {
   name: "Hope International Tutor Academy",
   url: "https://hopeinternationalacademy.com",
   description:
-    "Find verified home tutors and online tutors in Lahore, Islamabad, Faisalabad, and across Pakistan for Matric, FSc, O Levels, A Levels, and all major subjects.",
+    "Find verified home and online tutors worldwide for Matric, FSc, O Levels, A Levels, IELTS, Quran learning, and all major subjects.",
   email: "hopeinternationaltutoracademy@gmail.com",
   phone: "+92 301 4809150",
   phoneHref: "tel:+923014809150",
   whatsappHref: "https://wa.me/923014809150",
-  address: "Lahore, Islamabad & Faisalabad, Pakistan",
-  locations: ["Lahore", "Islamabad", "Faisalabad"],
+  address: "Pakistan, Saudi Arabia, UAE & worldwide",
+  locations: [
+    "Pakistan",
+    "Saudi Arabia",
+    "United Arab Emirates",
+    "United Kingdom",
+    "United States",
+    "Canada",
+    "Australia",
+    "Qatar",
+    "Oman",
+    "Kuwait"
+  ],
   founded: "2020",
   sameAs: [
     "https://www.facebook.com/share/1Au3StHi1W/",
     "https://www.instagram.com/hitutoracademy"
   ],
   keywords: [
+    "home tutor worldwide",
+    "home tuition worldwide",
+    "online tutor worldwide",
     "home tutor in Lahore",
     "home tutor in Islamabad",
     "home tutor in Faisalabad",
+    "home tutor in Multan",
+    "home tutor in Saudi Arabia",
+    "home tutor in UAE",
+    "home tutor in UK",
+    "home tutor in USA",
     "online tutor in Pakistan",
-    "home tuition in Lahore",
-    "online tuition in Pakistan",
+    "online tutor in Saudi Arabia",
+    "online tutor in UAE",
+    "online tutor in UK",
+    "online tutor in USA",
+    "online tuition worldwide",
+    "online tuition in Saudi Arabia",
     "Matric tutor",
     "FSc tutor",
     "O Level tutor",
     "A Level tutor",
-    "home tutor jobs in Pakistan",
-    "tuition teacher jobs in Lahore"
+    "home tutor jobs worldwide",
+    "online teaching jobs worldwide"
   ]
 };
 
@@ -102,37 +125,44 @@ export const classLevels = [
 
 export const serviceAreas = [
   {
-    city: "Lahore",
-    title: "Home Tutor in Lahore",
+    city: "Pakistan",
+    title: "Home & Online Tutors in Pakistan",
     description:
-      "Qualified male and female tutors for Lahore families, including school, college, O Level, A Level, Matric, and FSc tuition."
+      "Qualified male and female home and online tutors for students in Lahore, Islamabad, Faisalabad, Multan, and other major Pakistani cities."
   },
   {
-    city: "Islamabad",
-    title: "Home Tutor in Islamabad",
+    city: "Saudi Arabia",
+    title: "Home & Online Tutors in Saudi Arabia",
     description:
-      "Personalized home tuition and online classes for students in Islamabad who need subject support, exam preparation, or regular study help."
+      "Home tutoring and live online tuition for students in Saudi Arabia who need support for school subjects, O Levels, A Levels, IELTS, Quran learning, and exam preparation."
   },
   {
-    city: "Faisalabad",
-    title: "Home Tutor in Faisalabad",
+    city: "Worldwide",
+    title: "Home & Online Tutors Worldwide",
     description:
-      "Verified tutors in Faisalabad for science, math, English, computer science, board exam preparation, and one-on-one learning."
+      "Home tutoring and online tutoring support for families in the UAE, UK, USA, Canada, Australia, Qatar, Oman, Kuwait, and other major countries."
   }
 ];
 
 export const cities = [
-  "Lahore",
-  "Islamabad",
-  "Faisalabad",
-  "Other"
+  "Pakistan",
+  "Saudi Arabia",
+  "United Arab Emirates",
+  "United Kingdom",
+  "United States",
+  "Canada",
+  "Australia",
+  "Qatar",
+  "Oman",
+  "Kuwait",
+  "Other Country"
 ];
 
 export const stats = [
   { value: 3000, suffix: "+", label: "Happy Students" },
   { value: 1000, suffix: "+", label: "Qualified Tutors" },
   { value: 50, suffix: "+", label: "Subjects Covered" },
-  { value: 3, suffix: "", label: "Service Locations" }
+  { value: 10, suffix: "+", label: "Countries Served" }
 ];
 
 export const whyChooseUs = [
@@ -170,21 +200,21 @@ export const whyChooseUs = [
 
 export const testimonials = [
   {
-    quote:
-      "My son's grades improved from C to A in just 3 months. The tutor was professional and very patient.",
-    name: "Ayesha K.",
-    role: "Parent, Lahore"
+    title: "Tutor matching that fits the student's routine",
+    detail:
+      "Most parents ask for a tutor who can cover weak topics slowly, keep class timing consistent, and share progress after each week.",
+    context: "Common parent request - Pakistan"
   },
   {
-    quote:
-      "Online classes were convenient and focused. I prepared for my board exams without leaving home.",
-    name: "Ahmed R.",
-    role: "Student, Faisalabad"
+    title: "Online classes for regular study support",
+    detail:
+      "Students usually prefer online sessions when they need flexible timing, screen sharing, and quick help before tests or board exams.",
+    context: "Student support request - Saudi Arabia"
   },
   {
-    quote:
-      "They matched us with a tutor who understood my daughter's needs and helped her build confidence.",
-    name: "Fatima S.",
-    role: "Parent, Islamabad"
+    title: "Clear communication with parents",
+    detail:
+      "Families value simple updates about attendance, covered chapters, homework, and where the student still needs practice.",
+    context: "Parent feedback theme - UAE"
   }
 ];

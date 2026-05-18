@@ -349,7 +349,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .subject-pill:hover::before { opacity: 1; }
 .subject-pill span, .subject-pill { position: relative; z-index: 1; }
 
-/* ===== PREMIUM TESTIMONIALS ===== */
+/* ===== FAMILY FEEDBACK ===== */
 .testimonials { padding: 100px 0; background: var(--white); }
 .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
 .testimonial-card {
@@ -358,16 +358,30 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     transition: var(--transition); position: relative;
 }
 .testimonial-card::before {
-    content: '\201C'; position: absolute; top: 16px; right: 24px;
-    font-size: 5rem; font-family: var(--font-heading); color: rgba(184,134,11,0.1);
-    line-height: 1;
+    content: ''; position: absolute; top: 28px; right: 28px;
+    height: 8px; width: 48px; border-radius: 999px;
+    background: linear-gradient(90deg, var(--gold), var(--teal));
+    opacity: 0.18;
 }
-.testimonial-card:hover { transform: translateY(-6px) scale(1.02); box-shadow: var(--shadow-lg), 0 0 30px rgba(184,134,11,0.06); }
-.stars { color: var(--gold); font-size: 1.1rem; margin-bottom: 18px; letter-spacing: 3px; filter: drop-shadow(0 2px 4px rgba(184,134,11,0.2)); }
-.testimonial-card > p { font-size: 0.95rem; color: var(--ink-light); line-height: 1.8; margin-bottom: 24px; font-style: italic; position: relative; z-index: 1; }
+.testimonial-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg), 0 0 30px rgba(184,134,11,0.06); }
+.feedback-tag {
+    color: var(--gold); display: block; font-size: 0.72rem; font-weight: 800;
+    letter-spacing: 0.14em; margin-bottom: 16px; text-transform: uppercase;
+}
+.testimonial-card h3 {
+    color: var(--ink); font-family: var(--font-heading); font-size: 1.35rem;
+    line-height: 1.25; margin-bottom: 14px; position: relative; z-index: 1;
+}
+.testimonial-card > p { font-size: 0.95rem; color: var(--ink-light); line-height: 1.8; margin-bottom: 24px; position: relative; z-index: 1; }
 .testimonial-author { display: flex; flex-direction: column; padding-top: 16px; border-top: 1px solid rgba(0,0,0,0.06); }
 .testimonial-author strong { font-size: 0.95rem; color: var(--ink); }
 .testimonial-author span { font-size: 0.8rem; color: var(--ink-light); margin-top: 2px; }
+.testimonial-note {
+    align-items: center; background: var(--teal-soft); border: 1px solid rgba(15,118,110,0.12);
+    border-radius: var(--radius-lg); display: flex; gap: 18px; justify-content: space-between;
+    margin: 34px auto 0; max-width: 780px; padding: 18px 20px;
+}
+.testimonial-note p { color: var(--teal-dark); font-size: 0.92rem; font-weight: 600; margin: 0; }
 
 /* ===== PREMIUM CTA SECTION ===== */
 .cta-section {
@@ -677,7 +691,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .page-hero::before {
     content: ''; position: absolute; inset: 0;
-    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23B8860B' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='1.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background: linear-gradient(115deg, rgba(255,255,255,0.38), transparent 48%, rgba(255,255,255,0.24));
     pointer-events: none;
 }
 .page-hero h1 { font-family: var(--font-heading); font-size: clamp(2.2rem, 4.5vw, 3.2rem); margin-bottom: 14px; position: relative; }
@@ -991,6 +1005,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     .section-header h2 { font-size: 1.85rem; }
     .services, .why-us, .subjects, .testimonials, .cta-section { padding: 72px 0; }
     .service-card, .why-card, .testimonial-card { padding: 28px 22px; }
+    .testimonial-note { align-items: stretch; flex-direction: column; text-align: center; }
+    .testimonial-note .btn { width: 100%; }
     .subject-pill { padding: 11px 18px; font-size: 0.86rem; }
     .page-hero { padding: 112px 0 52px; }
     .page-hero h1 { font-size: clamp(2rem, 10vw, 2.6rem); }

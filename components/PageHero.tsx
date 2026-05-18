@@ -8,7 +8,7 @@ type PageHeroProps = {
 
 export function PageHero({ eyebrow, title, description }: PageHeroProps) {
   return (
-    <section className="subtle-pattern bg-gradient-to-br from-surface-warm via-teal-soft to-white pt-28 sm:pt-36">
+    <section className="bg-gradient-to-br from-surface-warm via-teal-soft to-white pt-28 sm:pt-36">
       <Container className="pb-12 text-center sm:pb-16">
         {eyebrow ? (
           <p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-gold sm:tracking-[0.22em]">

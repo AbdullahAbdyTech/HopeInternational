@@ -17,7 +17,7 @@ const sections: Array<{ title: string; body: ReactNode }> = [
   {
     title: "Information We Collect",
     body:
-      "We collect personal information you provide when registering as a student or teacher, including name, email, phone number, city, and educational details. We may also collect usage data through cookies and analytics."
+      "We collect personal information you provide when registering as a student or teacher, including name, email, phone number, country/location, address, and educational details. We may also collect usage data through cookies and analytics."
   },
   {
     title: "How We Use Your Information",

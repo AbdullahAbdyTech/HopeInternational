@@ -126,7 +126,7 @@ function FieldControl({ field }: { field: FormField }) {
       ) : field.type === "select" ? (
         <select name={field.name} required={field.required} className={baseClass} defaultValue="">
           <option value="" disabled>
-            Select
+            Select {field.label}
           </option>
           {field.options?.map((option) => (
             <option key={option.value ?? option.label} value={option.value ?? option.label}>

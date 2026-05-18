@@ -6,17 +6,19 @@ import { PageHero } from "@/components/PageHero";
 import { teacherFields } from "@/lib/forms";
 
 export const metadata: Metadata = {
-  title: "Home Tutor Jobs in Pakistan - Teacher Registration",
+  title: "Home Tutor Jobs & Online Teaching Jobs Worldwide - Teacher Registration",
   description:
-    "Apply for home tutor jobs in Pakistan. Join as a home tutor or online tutor in Lahore, Islamabad, Faisalabad, and teach Matric, FSc, O/A Levels, and more.",
+    "Apply for home tutor jobs and online teaching opportunities worldwide for students in Pakistan, Saudi Arabia, UAE, UK, USA, Canada, Australia, and more.",
   keywords: [
-    "home tutor jobs in Pakistan",
-    "home tutor jobs Lahore",
-    "tuition teacher jobs Lahore",
-    "online teaching jobs Pakistan",
-    "teacher registration Pakistan",
-    "tutor jobs Islamabad",
-    "tutor jobs Faisalabad"
+    "home tutor jobs worldwide",
+    "home tutor jobs Saudi Arabia",
+    "home tutor jobs UAE",
+    "online teaching jobs worldwide",
+    "online tutor jobs Saudi Arabia",
+    "online tutor jobs UAE",
+    "tuition teacher jobs worldwide",
+    "teacher registration worldwide",
+    "online tutor registration"
   ],
   alternates: {
     canonical: "/teacher-registration"
@@ -28,8 +30,8 @@ export default function TeacherRegistrationPage() {
     <>
       <PageHero
         eyebrow="Teacher Registration"
-        title="Home Tutor Jobs in Pakistan"
-        description="Apply to teach as a home tutor or online tutor for students in Lahore, Islamabad, Faisalabad, and across Pakistan."
+        title="Home Tutor Jobs & Online Teaching Worldwide"
+        description="Apply to teach as a home tutor or online tutor for students in Pakistan, Saudi Arabia, UAE, UK, USA, Canada, Australia, and other countries."
       />
       <section className="bg-surface py-14 sm:py-20">
         <Container>
@@ -46,8 +48,8 @@ export default function TeacherRegistrationPage() {
           </div>
           <div className="mx-auto mt-10 grid max-w-4xl gap-4 md:grid-cols-3">
             {[
-              ["Home Tutor Jobs", "Teach students at home in Lahore, Islamabad, and Faisalabad."],
-              ["Online Tutor Jobs", "Conduct live online tuition for students across Pakistan."],
+              ["Home Tutor Jobs", "Teach students at home in Pakistan, Saudi Arabia, UAE, UK, USA, Canada, Australia, and other major countries."],
+              ["Online Tutor Jobs", "Conduct live online tuition for students in Pakistan, Saudi Arabia, UAE, UK, USA, Canada, Australia, and more."],
               ["Subjects Needed", "Math, science, English, computer science, accounting, Quran, and major school subjects."]
             ].map(([title, detail]) => (
               <article key={title} className="rounded-2xl border border-black/5 bg-white p-5 shadow-soft">
