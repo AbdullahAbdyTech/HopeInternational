@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "Privacy Policy for Hope International Academy.",
+  description: "Privacy Policy for Hope International Tutor Academy.",
   alternates: {
     canonical: "/privacy"
   }

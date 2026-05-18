@@ -40,7 +40,7 @@ export default function TeacherRegistrationPage() {
               fields={teacherFields}
               submitLabel="Submit Application"
               successMessage="Teacher application submitted successfully."
-              emailSubject="New Teacher Application - Hope International Academy"
+              emailSubject="New Teacher Application - Hope International Tutor Academy"
               emailFormName="Teacher Registration"
             />
           </div>

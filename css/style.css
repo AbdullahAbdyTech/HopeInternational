@@ -854,6 +854,94 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     width: 20px;
 }
 
+/* ===== STUDENT REGISTRATION PROMPT ===== */
+.student-prompt {
+    align-items: flex-start;
+    background: rgba(9, 18, 31, 0.72);
+    backdrop-filter: blur(8px);
+    display: flex;
+    inset: 0;
+    justify-content: center;
+    overflow-y: auto;
+    padding: 32px 16px;
+    position: fixed;
+    z-index: 5000;
+}
+
+.student-prompt-card {
+    background: var(--white);
+    border-radius: 24px;
+    box-shadow: var(--shadow-lg);
+    max-width: 760px;
+    padding: 34px;
+    position: relative;
+    width: min(100%, 760px);
+}
+
+.student-prompt-close {
+    align-items: center;
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 50%;
+    box-shadow: var(--shadow-sm);
+    color: var(--muted);
+    cursor: pointer;
+    display: inline-flex;
+    height: 42px;
+    justify-content: center;
+    padding: 0;
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    transition: var(--transition);
+    width: 42px;
+}
+
+.student-prompt-close:hover {
+    background: var(--surface);
+    color: var(--ink);
+}
+
+.student-prompt-close svg {
+    height: 20px;
+    width: 20px;
+}
+
+.student-prompt-head {
+    margin-bottom: 24px;
+    padding-right: 48px;
+}
+
+.student-prompt-head span {
+    color: var(--gold);
+    display: block;
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.student-prompt-head h2 {
+    color: var(--ink);
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 4vw, 2.45rem);
+    line-height: 1.18;
+    margin-bottom: 10px;
+}
+
+.student-prompt-head p {
+    color: var(--muted);
+    font-size: 0.98rem;
+}
+
+@media (max-width: 640px) {
+    body.registration-page .whatsapp-float,
+    body.registration-page .social-float {
+        display: none;
+    }
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 920px) {
     .hamburger { display: block; }
@@ -919,6 +1007,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     .footer { padding-top: 56px; }
     .footer-bottom { padding-bottom: 96px; }
     .form-card { padding: 30px 20px; }
+    .student-prompt { padding: 18px 12px; }
+    .student-prompt-card { border-radius: 18px; padding: 26px 18px; }
+    .student-prompt-head { padding-right: 44px; }
     .whatsapp-float { bottom: 16px; right: 16px; height: 48px; width: 48px; }
     .whatsapp-float svg { height: 28px; width: 28px; }
     .social-float { bottom: 16px; gap: 8px; left: 16px; }

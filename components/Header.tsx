@@ -70,8 +70,8 @@ export function Header() {
           <span className="font-heading text-sm font-bold leading-tight text-ink sm:text-base">
             Hope International
             <br />
-            <span className="text-[0.68rem] uppercase tracking-[0.16em] text-gold sm:text-xs sm:tracking-[0.2em]">
-              Academy
+            <span className="text-[0.66rem] uppercase tracking-[0.08em] text-gold sm:text-[0.7rem] sm:tracking-[0.12em]">
+              Tutor Academy
             </span>
           </span>
         </Link>

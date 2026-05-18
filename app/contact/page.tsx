@@ -10,13 +10,13 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Contact for Home Tutor in Lahore, Islamabad & Faisalabad",
   description:
-    "Contact Hope International Academy to hire a home tutor in Lahore, Islamabad, or Faisalabad, or to start online tuition anywhere in Pakistan.",
+    "Contact Hope International Tutor Academy to hire a home tutor in Lahore, Islamabad, or Faisalabad, or to start online tuition anywhere in Pakistan.",
   keywords: [
     "contact home tutor Lahore",
     "home tutor Islamabad contact",
     "home tutor Faisalabad contact",
     "online tutor Pakistan contact",
-    "Hope International Academy contact"
+    "Hope International Tutor Academy contact"
   ],
   alternates: {
     canonical: "/contact"
@@ -30,13 +30,13 @@ export default function ContactPage() {
         data={{
           "@context": "https://schema.org",
           "@type": "ContactPage",
-          name: "Contact Hope International Academy",
-          description: "Get in touch with Hope International Academy for tutoring services."
+          name: "Contact Hope International Tutor Academy",
+          description: "Get in touch with Hope International Tutor Academy for tutoring services."
         }}
       />
       <PageHero
         eyebrow="Contact"
-        title="Contact Hope International Academy"
+        title="Contact Hope International Tutor Academy"
         description="Need a home tutor in Lahore, Islamabad, or Faisalabad, or online tuition in Pakistan? Reach out and we will respond as soon as possible."
       />
       <section className="bg-surface py-14 sm:py-20">

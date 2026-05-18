@@ -39,7 +39,7 @@ export default function StudentRegistrationPage() {
               fields={studentFields}
               submitLabel="Submit Registration"
               successMessage="Student registration submitted successfully."
-              emailSubject="New Student Registration - Hope International Academy"
+              emailSubject="New Student Registration - Hope International Tutor Academy"
               emailFormName="Student Registration"
             />
           </div>

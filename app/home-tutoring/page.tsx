@@ -27,7 +27,7 @@ export default function HomeTutoringPage() {
       title="Home Tutor in Lahore, Islamabad & Faisalabad"
       description="Verified home tutors at your doorstep for one-on-one tuition, exam preparation, and subject support across major classes and boards."
       introTitle="Personalized Home Tuition for Better Results"
-      intro="Hope International Academy helps parents find a qualified home tutor in Lahore, Islamabad, or Faisalabad for regular study support, weak subject improvement, homework help, and board exam preparation. Students learn in a familiar environment with focused attention from a tutor matched to their class, syllabus, and learning pace."
+      intro="Hope International Tutor Academy helps parents find a qualified home tutor in Lahore, Islamabad, or Faisalabad for regular study support, weak subject improvement, homework help, and board exam preparation. Students learn in a familiar environment with focused attention from a tutor matched to their class, syllabus, and learning pace."
       features={[
         "One-on-one home tuition with verified, experienced tutors",
         "Male and female tutors for Matric, FSc, ICS, O Levels, A Levels, and primary classes",

@@ -16,6 +16,7 @@ type RegistrationFormProps = {
   successMessage: string;
   emailSubject: string;
   emailFormName: string;
+  onSuccess?: () => void;
 };
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
@@ -27,7 +28,8 @@ export function RegistrationForm({
   submitLabel,
   successMessage,
   emailSubject,
-  emailFormName
+  emailFormName,
+  onSuccess
 }: RegistrationFormProps) {
   const [state, setState] = useState<SubmitState>("idle");
   const [error, setError] = useState("");
@@ -67,6 +69,7 @@ export function RegistrationForm({
 
       form.reset();
       setState("success");
+      onSuccess?.();
       window.setTimeout(() => setState("idle"), 3000);
     } catch (submitError) {
       setState("error");

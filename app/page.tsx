@@ -11,7 +11,7 @@ import { StatCounter } from "@/components/StatCounter";
 import { classLevels, serviceAreas, servicesNav, site, stats, subjects, testimonials, whyChooseUs } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Home Tutor in Lahore, Islamabad & Faisalabad",
+  title: "Home Tutor in Lahore, Islamabad & Faisalabad | Hope International Tutor Academy",
   description:
     "Find verified home tutors in Lahore, Islamabad, and Faisalabad plus online tutors across Pakistan for Matric, FSc, O Levels, A Levels, math, science, and English.",
   keywords: site.keywords,
@@ -48,7 +48,7 @@ const homeFaqs = [
   {
     question: "Where can I find a home tutor in Lahore, Islamabad, or Faisalabad?",
     answer:
-      "Hope International Academy connects families with verified home tutors in Lahore, Islamabad, and Faisalabad for one-on-one tuition at home."
+      "Hope International Tutor Academy connects families with verified home tutors in Lahore, Islamabad, and Faisalabad for one-on-one tuition at home."
   },
   {
     question: "Do you offer online tuition in Pakistan?",
@@ -215,7 +215,7 @@ export default function HomePage() {
 
       <section className="bg-surface py-20">
         <Container>
-          <SectionHeader eyebrow="Why Choose Us" title="The Hope International Difference" />
+          <SectionHeader eyebrow="Why Choose Us" title="The Hope International Tutor Difference" />
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {whyChooseUs.map((item, index) => (
               <Reveal key={item.title} delay={index * 60}>
@@ -298,7 +298,7 @@ export default function HomePage() {
         <Container className="text-center">
           <h2 className="font-heading text-3xl font-extrabold sm:text-4xl">Ready to Start Your Learning Journey?</h2>
           <p className="mx-auto mt-4 max-w-2xl text-white/75">
-            Join students who are already improving with personalized support from Hope International Academy.
+            Join students who are already improving with personalized support from Hope International Tutor Academy.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <ButtonLink href="/student-registration" size="large" className="w-full sm:w-auto">

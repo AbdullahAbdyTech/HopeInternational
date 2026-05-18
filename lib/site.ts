@@ -13,7 +13,7 @@ export type SitePage = {
 };
 
 export const site = {
-  name: "Hope International Academy",
+  name: "Hope International Tutor Academy",
   url: "https://hopeinternationalacademy.com",
   description:
     "Find verified home tutors and online tutors in Lahore, Islamabad, Faisalabad, and across Pakistan for Matric, FSc, O Levels, A Levels, and all major subjects.",
@@ -130,7 +130,7 @@ export const cities = [
 
 export const stats = [
   { value: 3000, suffix: "+", label: "Happy Students" },
-  { value: 500, suffix: "+", label: "Qualified Tutors" },
+  { value: 1000, suffix: "+", label: "Qualified Tutors" },
   { value: 50, suffix: "+", label: "Subjects Covered" },
   { value: 3, suffix: "", label: "Service Locations" }
 ];

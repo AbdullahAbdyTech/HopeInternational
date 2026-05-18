@@ -7,14 +7,14 @@ import { PageHero } from "@/components/PageHero";
 import { site, stats } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "About Hope International Academy - Tutoring in Pakistan",
+  title: "About Hope International Tutor Academy - Tutoring in Pakistan",
   description:
-    "Learn about Hope International Academy, a home tutoring and online tuition service helping students in Lahore, Islamabad, Faisalabad, and across Pakistan.",
+    "Learn about Hope International Tutor Academy, a home tutoring and online tuition service helping students in Lahore, Islamabad, Faisalabad, and across Pakistan.",
   keywords: [
     "tutoring academy in Pakistan",
     "home tuition academy Lahore",
     "online tuition academy Pakistan",
-    "Hope International Academy"
+    "Hope International Tutor Academy"
   ],
   alternates: {
     canonical: "/about"
@@ -35,13 +35,13 @@ export default function AboutPage() {
         data={{
           "@context": "https://schema.org",
           "@type": "AboutPage",
-          name: "About Hope International Academy",
+          name: "About Hope International Tutor Academy",
           description: "Learn about our mission to provide quality education in Lahore, Islamabad, and Faisalabad."
         }}
       />
       <PageHero
         eyebrow="About Us"
-        title="About Hope International Academy"
+        title="About Hope International Tutor Academy"
         description="Empowering students in Lahore, Islamabad, and Faisalabad with quality, personalized education since 2020."
       />
       <section className="py-14 sm:py-20">
@@ -55,9 +55,9 @@ export default function AboutPage() {
             </p>
             <h2 className="mt-10 font-heading text-2xl font-extrabold text-ink sm:text-3xl">Our Story</h2>
             <p className="mt-4 text-ink-muted">
-              Founded in 2020, Hope International Academy started with a simple goal: make quality
+              Founded in 2020, Hope International Tutor Academy started with a simple goal: make quality
               tutoring accessible and affordable for families in our service locations. What began as a small
-              team of educators has grown into a network of verified tutors serving students in
+              team of educators has grown into a network of 1000+ verified tutors serving students in
               Lahore, Islamabad, and Faisalabad.
             </p>
             <h2 className="mt-10 font-heading text-2xl font-extrabold text-ink sm:text-3xl">Our Values</h2>
@@ -91,7 +91,7 @@ export default function AboutPage() {
       </section>
       <section className="bg-surface py-14 sm:py-20">
         <Container className="text-center">
-          <h2 className="font-heading text-3xl font-extrabold text-ink sm:text-4xl">Join the Hope International Family</h2>
+          <h2 className="font-heading text-3xl font-extrabold text-ink sm:text-4xl">Join the Hope International Tutor Family</h2>
           <p className="mx-auto mt-4 max-w-2xl text-ink-muted">
             Whether you are a student seeking help or an educator looking to make a difference, we
             are ready to connect you with the right opportunity.

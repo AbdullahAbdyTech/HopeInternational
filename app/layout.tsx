@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { Footer } from "@/components/Footer";
+import { StudentRegistrationPrompt } from "@/components/forms/StudentRegistrationPrompt";
 import { Header } from "@/components/Header";
 import { SocialFloatingButtons } from "@/components/SocialFloatingButtons";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -11,12 +12,17 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Home Tutor in Lahore, Islamabad & Faisalabad | Hope International Academy",
-    template: "%s | Hope International Academy"
+    default: "Home Tutor in Lahore, Islamabad & Faisalabad | Hope International Tutor Academy",
+    template: "%s | Hope International Tutor Academy"
   },
   description: site.description,
   keywords: site.keywords,
   authors: [{ name: site.name }],
+  icons: {
+    icon: [{ url: "/favicon.png", type: "image/png" }],
+    shortcut: "/favicon.png",
+    apple: "/favicon.png"
+  },
   robots: {
     index: true,
     follow: true,
@@ -31,13 +37,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: site.url,
-    title: "Home Tutor in Lahore, Islamabad & Faisalabad | Hope International Academy",
+    title: "Home Tutor in Lahore, Islamabad & Faisalabad | Hope International Tutor Academy",
     description: site.description,
     siteName: site.name
   },
   twitter: {
     card: "summary_large_image",
-    title: "Home Tutor in Lahore, Islamabad & Faisalabad | Hope International Academy",
+    title: "Home Tutor in Lahore, Islamabad & Faisalabad | Hope International Tutor Academy",
     description: site.description
   }
 };
@@ -50,6 +56,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           Skip to main content
         </a>
         <Header />
+        <StudentRegistrationPrompt />
         <main id="main">{children}</main>
         <SocialFloatingButtons />
         <WhatsAppButton />

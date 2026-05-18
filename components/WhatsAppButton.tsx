@@ -1,13 +1,22 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+
 import { site } from "@/lib/site";
 
+const registrationPages = new Set(["/student-registration", "/teacher-registration"]);
+
 export function WhatsAppButton() {
+  const pathname = usePathname();
+  const displayClass = registrationPages.has(pathname) ? "hidden sm:inline-flex" : "inline-flex";
+
   return (
     <a
       href={site.whatsappHref}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`Chat on WhatsApp at ${site.phone}`}
-      className="fixed bottom-4 right-4 z-[45] inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_14px_34px_rgba(37,211,102,0.34)] ring-1 ring-white/30 transition hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(37,211,102,0.44)] focus:outline-none focus:ring-4 focus:ring-[#25D366]/30 sm:bottom-5 sm:right-5 sm:h-14 sm:w-14"
+      className={`fixed bottom-4 right-4 z-[45] ${displayClass} h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_14px_34px_rgba(37,211,102,0.34)] ring-1 ring-white/30 transition hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(37,211,102,0.44)] focus:outline-none focus:ring-4 focus:ring-[#25D366]/30 sm:bottom-5 sm:right-5 sm:h-14 sm:w-14`}
     >
       <svg viewBox="0 0 32 32" className="h-7 w-7 sm:h-8 sm:w-8" aria-hidden="true">
         <path

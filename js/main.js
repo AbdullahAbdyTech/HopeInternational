@@ -85,17 +85,104 @@ if (statsSection) counterObserver.observe(statsSection);
 
 const FORM_EMAIL_RECIPIENT = 'hopeinternationaltutoracademy@gmail.com';
 const FORM_EMAIL_ENDPOINT = 'https://flowform.to/submit';
+const STUDENT_PROMPT_DISMISSED_KEY = 'student-registration-prompt-dismissed';
+
+function isRegistrationPage() {
+    return window.location.pathname.endsWith('/student-registration')
+        || window.location.pathname.endsWith('/student-registration.html')
+        || window.location.pathname.endsWith('/teacher-registration')
+        || window.location.pathname.endsWith('/teacher-registration.html');
+}
+
+function closeStudentPrompt() {
+    const prompt = document.getElementById('studentRegistrationPrompt');
+    if (prompt) {
+        prompt.remove();
+    }
+    sessionStorage.setItem(STUDENT_PROMPT_DISMISSED_KEY, 'true');
+}
+
+function createStudentRegistrationPrompt() {
+    if (document.getElementById('studentRegistrationPrompt')) return;
+    if (isRegistrationPage()) {
+        sessionStorage.setItem(STUDENT_PROMPT_DISMISSED_KEY, 'true');
+        return;
+    }
+    if (sessionStorage.getItem(STUDENT_PROMPT_DISMISSED_KEY) === 'true') return;
+
+    const prompt = document.createElement('div');
+    prompt.id = 'studentRegistrationPrompt';
+    prompt.className = 'student-prompt';
+    prompt.setAttribute('role', 'dialog');
+    prompt.setAttribute('aria-modal', 'true');
+    prompt.setAttribute('aria-labelledby', 'studentPromptTitle');
+    prompt.innerHTML = `
+        <div class="student-prompt-card">
+            <button type="button" class="student-prompt-close" aria-label="Close student registration form">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <div class="student-prompt-head">
+                <span>Student Registration</span>
+                <h2 id="studentPromptTitle">Find a Home Tutor or Online Tutor</h2>
+                <p>Submit your details to get matched with a verified tutor. You can close this form to continue to the homepage.</p>
+            </div>
+            <form id="studentPromptForm" data-validate>
+                <div class="form-row">
+                    <div class="form-group"><label for="promptStudentName">Student Name *</label><input type="text" id="promptStudentName" name="studentName" required placeholder="Full name"></div>
+                    <div class="form-group"><label for="promptParentName">Parent/Guardian Name *</label><input type="text" id="promptParentName" name="parentName" required placeholder="Parent's name"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label for="promptEmail">Email Address *</label><input type="email" id="promptEmail" name="email" required placeholder="email@example.com"></div>
+                    <div class="form-group"><label for="promptPhone">Phone Number *</label><input type="tel" id="promptPhone" name="phone" required placeholder="+92 3XX XXXXXXX"></div>
+                </div>
+                <div class="form-group"><label for="promptAddress">Address *</label><textarea id="promptAddress" name="address" required placeholder="House no, area, city..."></textarea></div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="promptCity">City *</label>
+                        <select id="promptCity" name="city" required>
+                            <option value="">Select City</option>
+                            <option>Lahore</option><option>Islamabad</option><option>Faisalabad</option><option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="promptGrade">Grade/Class *</label>
+                        <select id="promptGrade" name="grade" required>
+                            <option value="">Select Grade</option>
+                            <option>Play Group / Nursery</option><option>KG / Prep</option><option>Class 1-5</option><option>Class 6-8</option><option>Class 9-10 (Matric)</option><option>Class 11-12 (FSc/ICS)</option><option>O-Levels</option><option>A-Levels</option><option>University</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group"><label for="promptSubjects">Subjects Needed *</label><input type="text" id="promptSubjects" name="subjects" required placeholder="e.g. Mathematics, Physics, English"></div>
+                <div class="form-group">
+                    <label for="promptTutoringType">Tutoring Type *</label>
+                    <select id="promptTutoringType" name="tutoringType" required>
+                        <option value="">Select Type</option>
+                        <option>Home Tutoring</option>
+                        <option>Online Tutoring</option>
+                        <option>Both</option>
+                    </select>
+                </div>
+                <div class="form-group"><label for="promptMessage">Additional Message</label><textarea id="promptMessage" name="message" placeholder="Any specific requirements or preferred timings..."></textarea></div>
+                <button type="submit" class="btn btn-primary" style="width:100%;">Submit Registration</button>
+            </form>
+        </div>
+    `;
+
+    document.body.appendChild(prompt);
+    prompt.querySelector('.student-prompt-close').addEventListener('click', closeStudentPrompt);
+    bindValidatedForm(prompt.querySelector('form'));
+}
 
 function getFormType(form) {
-    if (form.id === 'studentForm') return 'Student Registration';
+    if (form.id === 'studentForm' || form.id === 'studentPromptForm') return 'Student Registration';
     if (form.id === 'teacherForm') return 'Teacher Registration';
     return 'Contact Message';
 }
 
 function getFormSubject(form) {
-    if (form.id === 'studentForm') return 'New Student Registration - Hope International Academy';
-    if (form.id === 'teacherForm') return 'New Teacher Application - Hope International Academy';
-    return 'New Contact Message - Hope International Academy';
+    if (form.id === 'studentForm' || form.id === 'studentPromptForm') return 'New Student Registration - Hope International Tutor Academy';
+    if (form.id === 'teacherForm') return 'New Teacher Application - Hope International Tutor Academy';
+    return 'New Contact Message - Hope International Tutor Academy';
 }
 
 function sendFormEmail(form, data) {
@@ -127,11 +214,11 @@ function sendFormEmail(form, data) {
     });
 }
 
-// Form validation (for registration pages)
-document.addEventListener('DOMContentLoaded', () => {
-    const forms = document.querySelectorAll('form[data-validate]');
-    forms.forEach(form => {
-        form.addEventListener('submit', (e) => {
+function bindValidatedForm(form) {
+    if (!form || form.dataset.validationBound === 'true') return;
+
+    form.dataset.validationBound = 'true';
+    form.addEventListener('submit', (e) => {
             e.preventDefault();
             const inputs = form.querySelectorAll('[required]');
             let valid = true;
@@ -160,14 +247,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = {};
                 new FormData(form).forEach((v, k) => { data[k] = v; });
                 data.submittedAt = new Date().toISOString();
-                data.source = 'static-html';
+                const firestoreData = { ...data, source: 'static-html' };
 
                 // Save to Firestore if available
                 var collection = form.id === 'studentForm' ? 'studentRegistrations'
+                    : form.id === 'studentPromptForm' ? 'studentRegistrations'
                     : form.id === 'teacherForm' ? 'teacherRegistrations' : null;
 
                 const saveSubmission = window.db && collection
-                    ? window.db.collection(collection).add(data).catch(error => {
+                    ? window.db.collection(collection).add(firestoreData).catch(error => {
                         console.warn('Firestore save failed after form submission.', error);
                     })
                     : Promise.resolve();
@@ -178,6 +266,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         btn.textContent = 'Submitted Successfully!';
                         btn.style.background = '#22c55e';
                         form.reset();
+                        if (form.id === 'studentPromptForm') {
+                            setTimeout(closeStudentPrompt, 1200);
+                        }
                     })
                     .catch(() => {
                         btn.textContent = 'Error! Try Again';
@@ -192,5 +283,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
             }
         });
-    });
+}
+
+// Form validation (for registration pages)
+document.addEventListener('DOMContentLoaded', () => {
+    var navigationEntry = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    if (isRegistrationPage()) {
+        document.body.classList.add('registration-page');
+        sessionStorage.setItem(STUDENT_PROMPT_DISMISSED_KEY, 'true');
+    } else if (navigationEntry && navigationEntry.type === 'reload') {
+        document.body.classList.remove('registration-page');
+        sessionStorage.removeItem(STUDENT_PROMPT_DISMISSED_KEY);
+    } else {
+        document.body.classList.remove('registration-page');
+    }
+
+    document.querySelectorAll('form[data-validate]').forEach(bindValidatedForm);
+    createStudentRegistrationPrompt();
 });

@@ -30,7 +30,7 @@ export function ContactForm() {
 
       await sendFormEmail({
         formName: "Contact Message",
-        subject: "New Contact Message - Hope International Academy",
+        subject: "New Contact Message - Hope International Tutor Academy",
         fields: payload
       });
 

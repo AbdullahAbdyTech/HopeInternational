@@ -39,6 +39,13 @@ export const studentFields: FormField[] = [
     placeholder: "+92 3XX XXXXXXX"
   },
   {
+    name: "address",
+    label: "Address",
+    type: "textarea",
+    required: true,
+    placeholder: "House no, area, city..."
+  },
+  {
     name: "city",
     label: "City",
     type: "select",
@@ -107,6 +114,13 @@ export const teacherFields: FormField[] = [
     placeholder: "+92 3XX XXXXXXX"
   },
   {
+    name: "currentOccupation",
+    label: "Current Occupation",
+    type: "text",
+    required: true,
+    placeholder: "e.g. Teacher, Student, Lecturer"
+  },
+  {
     name: "city",
     label: "City",
     type: "select",
@@ -125,6 +139,13 @@ export const teacherFields: FormField[] = [
       { label: "M.Phil / MS" },
       { label: "PhD" }
     ]
+  },
+  {
+    name: "address",
+    label: "Address",
+    type: "textarea",
+    required: true,
+    placeholder: "House no, area, city..."
   },
   {
     name: "subjects",

@@ -28,7 +28,7 @@ export function Footer() {
             <span className="font-heading text-base font-bold leading-tight text-white">
               Hope International
               <br />
-              <span className="text-xs uppercase tracking-[0.2em] text-gold-bright">Academy</span>
+              <span className="text-xs uppercase tracking-[0.12em] text-gold-bright">Tutor Academy</span>
             </span>
           </Link>
           <p className="mt-5 max-w-sm text-sm leading-7">
@@ -58,7 +58,7 @@ export function Footer() {
       </Container>
       <div className="border-t border-white/10 px-16 pb-24 pt-6 text-center text-xs text-white/45 sm:px-0 sm:py-6">
         <Container>
-          <p>&copy; 2026 Hope International Academy. All rights reserved.</p>
+          <p>&copy; 2026 Hope International Tutor Academy. All rights reserved.</p>
         </Container>
       </div>
     </footer>

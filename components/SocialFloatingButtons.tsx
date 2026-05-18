@@ -1,8 +1,17 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+
 import { socialLinks } from "@/lib/site";
 
+const registrationPages = new Set(["/student-registration", "/teacher-registration"]);
+
 export function SocialFloatingButtons() {
+  const pathname = usePathname();
+  const wrapperDisplayClass = registrationPages.has(pathname) ? "hidden sm:flex" : "flex";
+
   return (
-    <div className="fixed bottom-4 left-4 z-[45] flex flex-col gap-2 sm:bottom-5 sm:left-5 sm:gap-3">
+    <div className={`fixed bottom-4 left-4 z-[45] ${wrapperDisplayClass} flex-col gap-2 sm:bottom-5 sm:left-5 sm:gap-3`}>
       {socialLinks.map((link) => (
         <a
           key={link.label}

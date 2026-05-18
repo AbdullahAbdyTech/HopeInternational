@@ -1,6 +1,6 @@
-# Hope International Academy
+# Hope International Tutor Academy
 
-Next.js, TypeScript, and Tailwind CSS frontend for Hope International Academy.
+Next.js, TypeScript, and Tailwind CSS frontend for Hope International Tutor Academy.
 
 ## Requirements
 
