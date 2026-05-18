@@ -74,7 +74,7 @@ export const studentFields: FormField[] = [
     label: "Subjects Needed",
     type: "text",
     required: true,
-    placeholder: "e.g. Mathematics, Physics, English"
+    placeholder: "e.g. Mathematics, IELTS, Programming, Physics"
   },
   {
     name: "tutoringType",
@@ -152,7 +152,7 @@ export const teacherFields: FormField[] = [
     label: "Subjects You Can Teach",
     type: "text",
     required: true,
-    placeholder: "e.g. Mathematics, Physics, Chemistry"
+    placeholder: "e.g. Mathematics, Chemistry, IELTS, Coding"
   },
   {
     name: "experience",

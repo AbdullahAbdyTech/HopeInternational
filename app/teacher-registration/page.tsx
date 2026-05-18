@@ -50,7 +50,7 @@ export default function TeacherRegistrationPage() {
             {[
               ["Home Tutor Jobs", "Teach students at home in Pakistan, Saudi Arabia, UAE, UK, USA, Canada, Australia, and other major countries."],
               ["Online Tutor Jobs", "Conduct live online tuition for students in Pakistan, Saudi Arabia, UAE, UK, USA, Canada, Australia, and more."],
-              ["Subjects Needed", "Math, science, English, computer science, accounting, Quran, and major school subjects."]
+              ["Subjects Needed", "Mathematics, science, English, languages, computer science, programming, accounting, economics, business studies, Quran, IELTS/TOEFL, SAT/ACT, and major school subjects."]
             ].map(([title, detail]) => (
               <article key={title} className="rounded-2xl border border-black/5 bg-white p-5 shadow-soft">
                 <h2 className="font-heading text-lg font-bold text-ink">{title}</h2>

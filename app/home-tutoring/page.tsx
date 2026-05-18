@@ -36,7 +36,7 @@ export default function HomeTutoringPage() {
       features={[
         "One-on-one home tuition with verified, experienced tutors",
         "Male and female tutors for Matric, FSc, ICS, O Levels, A Levels, and primary classes",
-        "Math, physics, chemistry, biology, English, computer science, accounting, and more",
+        "Mathematics, science, English, languages, computer science, programming, accounting, business studies, test preparation, and more",
         "Flexible scheduling in mornings, evenings, or weekends",
         "Regular progress updates for parents and guardians",
         "Available for families in Pakistan, Saudi Arabia, UAE, UK, USA, Canada, Australia, Qatar, Oman, Kuwait, and other major countries"
@@ -78,7 +78,7 @@ export default function HomeTutoringPage() {
         {
           question: "Can parents request a tutor for specific subjects?",
           answer:
-            "Yes. Parents can request tutors for math, physics, chemistry, biology, English, Urdu, computer science, accounting, economics, and other major subjects."
+            "Yes. Parents can request tutors for mathematics, science, English, languages, computer science, programming, accounting, economics, business studies, Quran studies, IELTS/TOEFL, SAT/ACT, and other major subjects."
         }
       ]}
     />

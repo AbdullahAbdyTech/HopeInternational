@@ -58,7 +58,7 @@ const homeFaqs = [
   {
     question: "Which subjects do your tutors teach?",
     answer:
-      "Our tutors cover math, physics, chemistry, biology, English, Urdu, computer science, accounting, economics, statistics, Islamiat, and Pakistan Studies."
+      "Our tutors cover mathematics, science, English, Urdu, Arabic, computer science, programming, business studies, accounting, economics, social studies, Quran studies, IELTS/TOEFL, SAT/ACT, and more."
   }
 ];
 
@@ -232,7 +232,7 @@ export default function HomePage() {
           <SectionHeader
             eyebrow="Subjects & Classes"
             title="Tutors for Matric, FSc, O/A Levels & All Major Subjects"
-                description="Get support for local boards, Cambridge classes, school homework, weak subject improvement, and exam preparation."
+                description="Get support for local boards, Cambridge classes, international syllabuses, languages, coding, business subjects, test preparation, and weak subject improvement."
           />
           <div className="mb-8 flex flex-wrap justify-center gap-3">
             {classLevels.map((level, index) => (

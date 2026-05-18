@@ -62,6 +62,22 @@ export const site = {
     "FSc tutor",
     "O Level tutor",
     "A Level tutor",
+    "IB tutor",
+    "AP tutor",
+    "SAT tutor",
+    "ACT tutor",
+    "IELTS tutor",
+    "TOEFL tutor",
+    "math tutor",
+    "science tutor",
+    "English tutor",
+    "computer science tutor",
+    "programming tutor",
+    "coding tutor",
+    "Quran tutor online",
+    "accounting tutor",
+    "economics tutor",
+    "business studies tutor",
     "home tutor jobs worldwide",
     "online teaching jobs worldwide"
   ]
@@ -102,13 +118,16 @@ export const subjects = [
   "Chemistry",
   "Biology",
   "English",
-  "Urdu",
+  "Urdu & Arabic",
   "Computer Science",
-  "Islamiat",
-  "Pakistan Studies",
+  "Programming / Coding",
   "Accounting",
   "Economics",
-  "Statistics"
+  "Business Studies",
+  "Statistics",
+  "Quran Studies",
+  "SAT / ACT Prep",
+  "IELTS / TOEFL"
 ];
 
 export const classLevels = [

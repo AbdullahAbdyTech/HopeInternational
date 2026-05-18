@@ -18,7 +18,10 @@ export const metadata: Metadata = {
     "online O Level tutor",
     "online A Level tutor",
     "Matric online tuition",
-    "FSc online tutor"
+    "FSc online tutor",
+    "online IELTS tutor",
+    "online programming tutor",
+    "online Quran tutor"
   ],
   alternates: {
     canonical: "/online-tutoring"
@@ -39,7 +42,7 @@ export default function OnlineTutoringPage() {
         "Screen sharing for computer science and IT subjects",
         "Online tuition for Matric, FSc, ICS, O Levels, A Levels, IELTS, and Quran learning",
         "Flexible timing that works around your schedule",
-        "Math, science, English, Urdu, computer science, accounting, economics, and more"
+        "Mathematics, science, English, Urdu, Arabic, computer science, programming, accounting, economics, business studies, IELTS/TOEFL, SAT/ACT, and more"
       ]}
       steps={[
         ["Register", "Complete the student registration form."],
@@ -69,7 +72,7 @@ export default function OnlineTutoringPage() {
         {
           question: "Which classes and subjects are available for online tuition?",
           answer:
-            "We support primary classes, Matric, FSc, ICS, O Levels, A Levels, IELTS, Quran learning, and major subjects including math, science, English, Urdu, and computer science."
+            "We support primary classes, Matric, FSc, ICS, O Levels, A Levels, IELTS, TOEFL, SAT/ACT, Quran learning, and major subjects including mathematics, science, English, languages, computer science, programming, accounting, economics, and business studies."
         },
         {
           question: "How are online tutoring sessions conducted?",
