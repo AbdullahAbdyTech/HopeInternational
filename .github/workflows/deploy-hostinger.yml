@@ -31,31 +31,13 @@ jobs:
       - name: Build static export
         run: npm run build
 
-      - name: Install FTP client
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y lftp
-
       - name: Upload to Hostinger
-        env:
-          FTP_SERVER: 46.17.175.108
-          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          FTP_PORT: 21
-          FTP_REMOTE_DIR: /
-        run: |
-          for name in FTP_USERNAME FTP_PASSWORD; do
-            if [ -z "${!name}" ]; then
-              echo "::error::$name secret is not set"
-              exit 1
-            fi
-          done
-
-          lftp -p "$FTP_PORT" -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_SERVER" <<EOF
-          set ftp:ssl-allow no
-          set ftp:passive-mode on
-          set net:max-retries 3
-          set net:timeout 30
-          mirror --reverse --delete --verbose --parallel=4 out/ "$FTP_REMOTE_DIR"
-          bye
-          EOF
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: 46.17.175.108
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          protocol: ftp
+          local-dir: ./out/
+          server-dir: ./
