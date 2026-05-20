@@ -2,6 +2,9 @@ DirectoryIndex index.html
 
 RewriteEngine On
 
+RewriteRule ^homepage/?$ / [R=301,L]
+RewriteRule ^homepage/index\.html$ / [R=301,L]
+
 RewriteCond %{THE_REQUEST} \s/+index\.html[?\s]
 RewriteRule ^index\.html$ / [R=301,L]
 
