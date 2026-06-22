@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Footer } from "@/components/Footer";
 import { StudentRegistrationPrompt } from "@/components/forms/StudentRegistrationPrompt";
 import { Header } from "@/components/Header";
+import { MetaPixel } from "@/components/MetaPixel";
 import { SocialFloatingButtons } from "@/components/SocialFloatingButtons";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { site } from "@/lib/site";
@@ -52,6 +53,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body>
+        <MetaPixel />
         <a href="#main" className="skip-link">
           Skip to main content
         </a>

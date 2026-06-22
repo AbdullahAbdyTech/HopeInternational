@@ -10,6 +10,7 @@ const quickLinks = [
 ];
 
 const audienceLinks = [
+  { label: "Student Enrollment", href: "/student-enrollment" },
   { label: "Student Registration", href: "/student-registration" },
   { label: "Teacher Registration", href: "/teacher-registration" },
   { label: "Contact Us", href: "/contact" },

@@ -14,7 +14,7 @@ export type SitePage = {
 
 export const site = {
   name: "Hope International Tutor Academy",
-  url: "https://hopeinternationalacademy.com",
+  url: "https://hitutoracademy.com",
   description:
     "Find verified home and online tutors worldwide for Matric, FSc, O Levels, A Levels, IELTS, Quran learning, and all major subjects.",
   email: "hopeinternationaltutoracademy@gmail.com",
@@ -88,6 +88,7 @@ export const pages: SitePage[] = [
   { path: "/about", label: "About Us", changeFrequency: "monthly", priority: 0.8 },
   { path: "/home-tutoring", label: "In-Home Tutoring", changeFrequency: "monthly", priority: 0.9 },
   { path: "/online-tutoring", label: "Online Tutoring", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/student-enrollment", label: "Student Enrollment", changeFrequency: "monthly", priority: 0.95 },
   { path: "/student-registration", label: "Student Registration", changeFrequency: "monthly", priority: 0.9 },
   { path: "/teacher-registration", label: "Teacher Registration", changeFrequency: "monthly", priority: 0.8 },
   { path: "/contact", label: "Contact Us", changeFrequency: "monthly", priority: 0.7 },

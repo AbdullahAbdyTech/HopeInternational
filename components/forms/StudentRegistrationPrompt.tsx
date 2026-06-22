@@ -19,7 +19,7 @@ const RegistrationForm = dynamic(
 );
 
 const promptDismissedKey = "student-registration-prompt-dismissed";
-const registrationPages = new Set(["/student-registration", "/teacher-registration"]);
+const registrationPages = new Set(["/student-registration", "/student-enrollment", "/teacher-registration", "/thank-you"]);
 
 export function StudentRegistrationPrompt() {
   const pathname = usePathname();

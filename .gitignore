@@ -11,6 +11,9 @@ dist/
 coverage/
 *.tsbuildinfo
 .env*.local
+.capi-secrets.php
+api/.capi-secrets.php
+public/api/.capi-secrets.php
 .tools/
 .tmp-*.png
 

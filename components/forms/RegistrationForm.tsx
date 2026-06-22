@@ -67,6 +67,8 @@ export function RegistrationForm({
 
       await saveSubmission;
 
+      trackRegistrationConversion(formId, payload);
+
       form.reset();
       setState("success");
       onSuccess?.();
@@ -106,6 +108,91 @@ export function RegistrationForm({
       </button>
     </form>
   );
+}
+
+function trackRegistrationConversion(formId: string, payload: Record<string, FormDataEntryValue>) {
+  const config = getRegistrationTrackingConfig(formId);
+
+  if (!config || typeof window === "undefined") return;
+
+  const leadEventId = generateEventId("Lead");
+  const registrationEventId = generateEventId("CompleteRegistration");
+  const program = getString(payload.subjects) || getString(payload.grade) || getString(payload.qualification) || config.program;
+  const params = {
+    content_name: config.contentName,
+    content_category: "Education",
+    content_type: "lead_form",
+    content_ids: [config.contentId],
+    status: "submitted",
+    program
+  };
+
+  // Use identical event IDs in browser Pixel and CAPI so Meta can deduplicate the pair.
+  window.fbq?.("track", "Lead", params, { eventID: leadEventId });
+  window.fbq?.("track", "CompleteRegistration", params, { eventID: registrationEventId });
+
+  void fetch("/api/enrollment-lead.php", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      action: "track_conversion",
+      form_type: config.formType,
+      lead: formDataFieldsToObject(payload),
+      event_id: leadEventId,
+      registration_event_id: registrationEventId,
+      event_source_url: window.location.href,
+      fbp: getCookie("_fbp"),
+      fbc: getCookie("_fbc")
+    }),
+    keepalive: true
+  }).catch((trackingError) => {
+    console.warn("Meta CAPI conversion request failed.", trackingError);
+  });
+}
+
+function getRegistrationTrackingConfig(formId: string) {
+  if (formId === "studentForm" || formId === "studentPromptForm") {
+    return {
+      formType: "Student Registration",
+      contentName: "Student Registration",
+      contentId: "student-registration",
+      program: "Student Tutoring Request"
+    };
+  }
+
+  if (formId === "teacherForm") {
+    return {
+      formType: "Teacher Registration",
+      contentName: "Teacher Registration",
+      contentId: "teacher-registration",
+      program: "Tutor Application"
+    };
+  }
+
+  return null;
+}
+
+function generateEventId(eventName: string) {
+  return `hita-${eventName.toLowerCase()}-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+}
+
+function getCookie(name: string) {
+  const pattern = new RegExp(`(?:^|; )${name.replace(/[.$?*|{}()[\]\\/+^]/g, "\\$&")}=([^;]*)`);
+  const match = document.cookie.match(pattern);
+  return match ? decodeURIComponent(match[1]) : "";
+}
+
+function formDataFieldsToObject(payload: Record<string, FormDataEntryValue>) {
+  return Object.fromEntries(
+    Object.entries(payload).filter((entry): entry is [string, string] => typeof entry[1] === "string")
+  );
+}
+
+function getString(value: FormDataEntryValue | undefined) {
+  return typeof value === "string" ? value : "";
 }
 
 function FieldControl({ field }: { field: FormField }) {

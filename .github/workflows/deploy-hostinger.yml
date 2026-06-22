@@ -21,13 +21,44 @@ jobs:
 
       - name: Prepare static files
         run: |
+          if [ -z "$META_CAPI_ACCESS_TOKEN" ]; then
+            echo "::error::Missing GitHub Actions secret META_CAPI_ACCESS_TOKEN. Add it before deploying CAPI."
+            exit 1
+          fi
           mkdir -p _deploy
           cp ./*.html _deploy/
           cp ./favicon.png ./robots.txt ./sitemap.xml ./.htaccess _deploy/
           cp -R ./css ./js _deploy/
+          cp -R ./api _deploy/
           if [ -d ./images ]; then
             cp -R ./images _deploy/
           fi
+          if [ -n "$META_CAPI_ACCESS_TOKEN" ]; then
+            node <<'NODE'
+          const fs = require("fs");
+
+          function phpString(value) {
+            return `'${String(value).replace(/\\/g, "\\\\").replace(/'/g, "\\'")}'`;
+          }
+
+          const token = process.env.META_CAPI_ACCESS_TOKEN || "";
+          const testCode = process.env.META_TEST_EVENT_CODE || "";
+
+          if (token) {
+            fs.writeFileSync(
+              "_deploy/api/.capi-secrets.php",
+              "<?php\nreturn [\n" +
+                "    'META_CAPI_ACCESS_TOKEN' => " + phpString(token) + ",\n" +
+                "    'META_TEST_EVENT_CODE' => " + phpString(testCode) + ",\n" +
+                "];\n",
+              "utf8"
+            );
+          }
+          NODE
+          fi
+        env:
+          META_CAPI_ACCESS_TOKEN: ${{ secrets.META_CAPI_ACCESS_TOKEN }}
+          META_TEST_EVENT_CODE: ${{ secrets.META_TEST_EVENT_CODE }}
 
       - name: Upload to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
