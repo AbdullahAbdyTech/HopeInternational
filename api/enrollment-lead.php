@@ -60,7 +60,9 @@ function handle_track_event(array $payload): void
         'ok' => true,
         'event_id' => $eventId,
         'capi_configured' => $capi['configured'],
-        'capi_sent' => $capi['sent']
+        'capi_sent' => $capi['sent'],
+        'capi_status' => $capi['status'],
+        'capi_transport' => $capi['transport']
     ]);
 }
 
@@ -110,7 +112,9 @@ function handle_submit_enrollment(array $payload): void
         'event_id' => $leadEventId,
         'registration_event_id' => $registrationEventId,
         'capi_configured' => $capi['configured'],
-        'capi_sent' => $capi['sent']
+        'capi_sent' => $capi['sent'],
+        'capi_status' => $capi['status'],
+        'capi_transport' => $capi['transport']
     ]);
 }
 
@@ -146,7 +150,9 @@ function handle_track_conversion(array $payload): void
             'ok' => true,
             'event_id' => $leadEventId,
             'capi_configured' => $capi['configured'],
-            'capi_sent' => $capi['sent']
+            'capi_sent' => $capi['sent'],
+            'capi_status' => $capi['status'],
+            'capi_transport' => $capi['transport']
         ]);
     }
 
@@ -171,7 +177,9 @@ function handle_track_conversion(array $payload): void
         'event_id' => $leadEventId,
         'registration_event_id' => $registrationEventId,
         'capi_configured' => $capi['configured'],
-        'capi_sent' => $capi['sent']
+        'capi_sent' => $capi['sent'],
+        'capi_status' => $capi['status'],
+        'capi_transport' => $capi['transport']
     ]);
 }
 
@@ -344,11 +352,7 @@ function send_meta_events(array $events): array
     $testEventCode = get_secret_value('META_TEST_EVENT_CODE');
 
     if ($accessToken === '') {
-        return ['configured' => false, 'sent' => false, 'response' => null];
-    }
-
-    if (!function_exists('curl_init')) {
-        return ['configured' => true, 'sent' => false, 'response' => 'cURL is unavailable'];
+        return ['configured' => false, 'sent' => false, 'response' => null, 'status' => null, 'transport' => null];
     }
 
     $body = ['data' => $events];
@@ -358,8 +362,37 @@ function send_meta_events(array $events): array
 
     $url = 'https://graph.facebook.com/' . HITA_GRAPH_API_VERSION . '/' . rawurlencode(HITA_PIXEL_ID) . '/events'
         . '?access_token=' . rawurlencode($accessToken);
-    $ch = curl_init($url);
+    $result = post_json_with_curl($url, $body);
 
+    if (!$result['attempted'] || $result['status'] === 0) {
+        $fallback = post_json_with_stream($url, $body);
+        if ($fallback['attempted']) {
+            $result = $fallback;
+        }
+    }
+
+    return [
+        'configured' => true,
+        'sent' => $result['status'] >= 200 && $result['status'] < 300,
+        'response' => $result['response'] ?: $result['error'],
+        'status' => $result['status'] ?: null,
+        'transport' => $result['transport']
+    ];
+}
+
+function post_json_with_curl(string $url, array $body): array
+{
+    if (!function_exists('curl_init')) {
+        return [
+            'attempted' => false,
+            'status' => 0,
+            'response' => null,
+            'error' => 'cURL is unavailable',
+            'transport' => 'curl'
+        ];
+    }
+
+    $ch = curl_init($url);
     curl_setopt_array($ch, [
         CURLOPT_POST => true,
         CURLOPT_POSTFIELDS => json_encode($body),
@@ -374,9 +407,51 @@ function send_meta_events(array $events): array
     curl_close($ch);
 
     return [
-        'configured' => true,
-        'sent' => $status >= 200 && $status < 300,
-        'response' => $responseBody ?: $error
+        'attempted' => true,
+        'status' => $status,
+        'response' => is_string($responseBody) ? $responseBody : null,
+        'error' => $error,
+        'transport' => 'curl'
+    ];
+}
+
+function post_json_with_stream(string $url, array $body): array
+{
+    if (!filter_var(ini_get('allow_url_fopen'), FILTER_VALIDATE_BOOLEAN)) {
+        return [
+            'attempted' => false,
+            'status' => 0,
+            'response' => null,
+            'error' => 'allow_url_fopen is disabled',
+            'transport' => 'stream'
+        ];
+    }
+
+    $context = stream_context_create([
+        'http' => [
+            'method' => 'POST',
+            'header' => "Content-Type: application/json\r\nAccept: application/json\r\n",
+            'content' => json_encode($body),
+            'timeout' => 12,
+            'ignore_errors' => true
+        ]
+    ]);
+    $responseBody = @file_get_contents($url, false, $context);
+    $headers = $http_response_header ?? [];
+    $status = 0;
+
+    if (isset($headers[0]) && preg_match('/\s(\d{3})\s/', $headers[0], $matches)) {
+        $status = (int) $matches[1];
+    }
+
+    $lastError = error_get_last();
+
+    return [
+        'attempted' => true,
+        'status' => $status,
+        'response' => is_string($responseBody) ? $responseBody : null,
+        'error' => $lastError['message'] ?? '',
+        'transport' => 'stream'
     ];
 }
 
