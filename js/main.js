@@ -225,6 +225,7 @@ function getFormTrackingConfig(form) {
             contentName: 'Student Registration',
             contentId: 'student-registration',
             program: 'Student Tutoring Request',
+            thankYouType: 'student-registration',
             completeRegistration: true
         };
     }
@@ -235,6 +236,7 @@ function getFormTrackingConfig(form) {
             contentName: 'Teacher Registration',
             contentId: 'teacher-registration',
             program: 'Tutor Application',
+            thankYouType: 'teacher-registration',
             completeRegistration: true
         };
     }
@@ -244,8 +246,13 @@ function getFormTrackingConfig(form) {
         contentName: 'Contact Form Lead',
         contentId: 'contact-form',
         program: 'Contact Request',
+        thankYouType: 'contact',
         completeRegistration: false
     };
+}
+
+function getSubmissionProgram(config, data) {
+    return data.subjects || data.grade || data.qualification || data.subject || config.program;
 }
 
 function trackSuccessfulFormSubmission(form, data) {
@@ -264,7 +271,7 @@ function trackSuccessfulFormSubmission(form, data) {
         content_type: config.completeRegistration ? 'lead_form' : 'contact_form',
         content_ids: [config.contentId],
         status: 'submitted',
-        program: data.subjects || data.grade || data.qualification || data.subject || config.program
+        program: getSubmissionProgram(config, data)
     };
 
     // Browser events use the same event_id values that the PHP CAPI endpoint sends for deduplication.
@@ -298,6 +305,61 @@ function trackSuccessfulFormSubmission(form, data) {
     }).catch(error => {
         console.warn('Meta CAPI conversion request failed.', error);
     });
+}
+
+function buildThankYouUrl(form, data) {
+    const config = getFormTrackingConfig(form);
+    const thankYouUrl = new URL('/thank-you', window.location.origin);
+
+    thankYouUrl.searchParams.set('type', config.thankYouType);
+    thankYouUrl.searchParams.set('program', getSubmissionProgram(config, data));
+
+    return thankYouUrl.pathname + thankYouUrl.search;
+}
+
+function redirectToThankYouAfterSuccess(form, data) {
+    const thankYouUrl = buildThankYouUrl(form, data);
+
+    window.setTimeout(() => {
+        window.location.href = thankYouUrl;
+    }, 700);
+}
+
+function updateThankYouContent() {
+    const path = window.location.pathname.replace(/\/+$/, '').replace(/\.html$/, '') || '/';
+    if (path !== '/thank-you') return;
+
+    const search = new URLSearchParams(window.location.search);
+    const type = search.get('type') || 'student-enrollment';
+    const copy = {
+        'student-enrollment': {
+            title: 'Enrollment request received',
+            body: 'Thank you for contacting Hope International Tutor Academy. Our team will review your request and contact you with the next steps.'
+        },
+        'student-registration': {
+            title: 'Student registration received',
+            body: 'Your student registration has been received. Our team will review the details and contact you for tutor matching.'
+        },
+        'teacher-registration': {
+            title: 'Teacher registration received',
+            body: 'Your teacher application has been received. Our team will review your profile and contact you about the next step.'
+        },
+        contact: {
+            title: 'Message received',
+            body: 'Thank you for contacting Hope International Tutor Academy. Our support team will reply by phone, WhatsApp, or email.'
+        }
+    }[type] || null;
+
+    if (!copy) return;
+
+    const card = document.querySelector('.thank-you-card');
+    if (!card) return;
+
+    const title = card.querySelector('h1');
+    const body = card.querySelector('p');
+
+    if (title) title.textContent = copy.title;
+    if (body) body.textContent = copy.body;
 }
 
 function bindValidatedForm(form) {
@@ -353,9 +415,7 @@ function bindValidatedForm(form) {
                         btn.textContent = 'Submitted Successfully!';
                         btn.style.background = '#22c55e';
                         form.reset();
-                        if (form.id === 'studentPromptForm') {
-                            setTimeout(closeStudentPrompt, 1200);
-                        }
+                        redirectToThankYouAfterSuccess(form, data);
                     })
                     .catch(() => {
                         btn.textContent = 'Error! Try Again';
@@ -386,5 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.querySelectorAll('form[data-validate]').forEach(bindValidatedForm);
+
+    updateThankYouContent();
     createStudentRegistrationPrompt();
 });

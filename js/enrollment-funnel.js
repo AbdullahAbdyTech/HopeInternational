@@ -119,6 +119,7 @@
 
     function redirectToThankYou(lead, leadEventId, registrationEventId) {
         var thankYouUrl = new URL('/thank-you', window.location.origin);
+        thankYouUrl.searchParams.set('type', 'student-enrollment');
         thankYouUrl.searchParams.set('event_id', leadEventId);
         thankYouUrl.searchParams.set('registration_event_id', registrationEventId);
         thankYouUrl.searchParams.set('program', lead.courseProgram);
