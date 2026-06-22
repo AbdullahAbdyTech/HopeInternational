@@ -45,7 +45,9 @@ function handle_track_event(array $payload): void
     $eventId = sanitize_event_id($payload['event_id'] ?? '');
     $sourceUrl = sanitize_url($payload['event_source_url'] ?? '');
 
-    if ($eventName !== 'ViewContent' || $eventId === '') {
+    $allowedEvents = ['PageView', 'ViewContent', 'Contact'];
+
+    if (!in_array($eventName, $allowedEvents, true) || $eventId === '') {
         respond(['ok' => false, 'message' => 'Invalid tracking event.'], 422);
     }
 
@@ -115,7 +117,7 @@ function handle_submit_enrollment(array $payload): void
 function handle_track_conversion(array $payload): void
 {
     $formType = sanitize_text($payload['form_type'] ?? '', 80);
-    $allowedTypes = ['Student Registration', 'Teacher Registration'];
+    $allowedTypes = ['Student Registration', 'Teacher Registration', 'Contact Message'];
 
     if (!in_array($formType, $allowedTypes, true)) {
         respond(['ok' => false, 'message' => 'Unsupported conversion type.'], 422);
@@ -125,6 +127,29 @@ function handle_track_conversion(array $payload): void
     $leadEventId = sanitize_event_id($payload['event_id'] ?? '') ?: generate_event_id('lead');
     $registrationEventId = sanitize_event_id($payload['registration_event_id'] ?? '') ?: generate_event_id('registration');
     $sourceUrl = sanitize_url($payload['event_source_url'] ?? '');
+
+    if ($formType === 'Contact Message') {
+        $customData = [
+            'content_name' => 'Contact Form Lead',
+            'content_category' => 'Education',
+            'content_type' => 'contact_form',
+            'content_ids' => ['contact-form'],
+            'status' => 'submitted',
+            'program' => $lead['courseProgram'] !== '' ? $lead['courseProgram'] : 'Contact Request'
+        ];
+        $userData = build_user_data($lead, $payload);
+        $capi = send_meta_events([
+            build_meta_event('Lead', $leadEventId, $sourceUrl, $userData, $customData)
+        ]);
+
+        respond([
+            'ok' => true,
+            'event_id' => $leadEventId,
+            'capi_configured' => $capi['configured'],
+            'capi_sent' => $capi['sent']
+        ]);
+    }
+
     $contentId = $formType === 'Teacher Registration' ? 'teacher-registration' : 'student-registration';
     $program = $lead['courseProgram'] !== '' ? $lead['courseProgram'] : $formType;
     $customData = [
@@ -169,7 +194,7 @@ function normalize_registration_lead($rawLead): array
 {
     $lead = is_array($rawLead) ? $rawLead : [];
     $fullName = $lead['fullName'] ?? $lead['studentName'] ?? $lead['parentName'] ?? $lead['name'] ?? '';
-    $courseProgram = $lead['courseProgram'] ?? $lead['subjects'] ?? $lead['grade'] ?? $lead['qualification'] ?? '';
+    $courseProgram = $lead['courseProgram'] ?? $lead['subjects'] ?? $lead['grade'] ?? $lead['qualification'] ?? $lead['subject'] ?? '';
     $message = $lead['message'] ?? $lead['about'] ?? '';
 
     return [

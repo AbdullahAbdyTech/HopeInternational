@@ -218,13 +218,14 @@ function sendFormEmail(form, data) {
     });
 }
 
-function getRegistrationTrackingConfig(form) {
+function getFormTrackingConfig(form) {
     if (form.id === 'studentForm' || form.id === 'studentPromptForm') {
         return {
             formType: 'Student Registration',
             contentName: 'Student Registration',
             contentId: 'student-registration',
-            program: 'Student Tutoring Request'
+            program: 'Student Tutoring Request',
+            completeRegistration: true
         };
     }
 
@@ -233,15 +234,22 @@ function getRegistrationTrackingConfig(form) {
             formType: 'Teacher Registration',
             contentName: 'Teacher Registration',
             contentId: 'teacher-registration',
-            program: 'Tutor Application'
+            program: 'Tutor Application',
+            completeRegistration: true
         };
     }
 
-    return null;
+    return {
+        formType: 'Contact Message',
+        contentName: 'Contact Form Lead',
+        contentId: 'contact-form',
+        program: 'Contact Request',
+        completeRegistration: false
+    };
 }
 
-function trackSuccessfulRegistration(form, data) {
-    const config = getRegistrationTrackingConfig(form);
+function trackSuccessfulFormSubmission(form, data) {
+    const config = getFormTrackingConfig(form);
     const tracking = window.HITA_META_TRACKING;
 
     if (!config || !tracking) {
@@ -249,19 +257,35 @@ function trackSuccessfulRegistration(form, data) {
     }
 
     const leadEventId = tracking.generateEventId('Lead');
-    const registrationEventId = tracking.generateEventId('CompleteRegistration');
+    const registrationEventId = config.completeRegistration ? tracking.generateEventId('CompleteRegistration') : '';
     const params = {
         content_name: config.contentName,
         content_category: 'Education',
-        content_type: 'lead_form',
+        content_type: config.completeRegistration ? 'lead_form' : 'contact_form',
         content_ids: [config.contentId],
         status: 'submitted',
-        program: data.subjects || data.grade || data.qualification || config.program
+        program: data.subjects || data.grade || data.qualification || data.subject || config.program
     };
 
     // Browser events use the same event_id values that the PHP CAPI endpoint sends for deduplication.
     tracking.trackBrowserEvent('Lead', params, leadEventId);
-    tracking.trackBrowserEvent('CompleteRegistration', params, registrationEventId);
+    if (registrationEventId) {
+        tracking.trackBrowserEvent('CompleteRegistration', params, registrationEventId);
+    }
+
+    const trackingPayload = {
+        action: 'track_conversion',
+        form_type: config.formType,
+        lead: data,
+        event_id: leadEventId,
+        event_source_url: window.location.href,
+        fbp: tracking.getCookie('_fbp'),
+        fbc: tracking.getCookie('_fbc')
+    };
+
+    if (registrationEventId) {
+        trackingPayload.registration_event_id = registrationEventId;
+    }
 
     return fetch(tracking.capiEndpoint, {
         method: 'POST',
@@ -269,16 +293,7 @@ function trackSuccessfulRegistration(form, data) {
             Accept: 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            action: 'track_conversion',
-            form_type: config.formType,
-            lead: data,
-            event_id: leadEventId,
-            registration_event_id: registrationEventId,
-            event_source_url: window.location.href,
-            fbp: tracking.getCookie('_fbp'),
-            fbc: tracking.getCookie('_fbc')
-        }),
+        body: JSON.stringify(trackingPayload),
         keepalive: true
     }).catch(error => {
         console.warn('Meta CAPI conversion request failed.', error);
@@ -334,7 +349,7 @@ function bindValidatedForm(form) {
                 sendFormEmail(form, data)
                     .then(() => saveSubmission)
                     .then(() => {
-                        trackSuccessfulRegistration(form, data);
+                        trackSuccessfulFormSubmission(form, data);
                         btn.textContent = 'Submitted Successfully!';
                         btn.style.background = '#22c55e';
                         form.reset();

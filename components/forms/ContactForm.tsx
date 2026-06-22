@@ -36,6 +36,8 @@ export function ContactForm() {
 
       await saveSubmission;
 
+      trackContactFormConversion(payload);
+
       form.reset();
       setState("success");
       window.setTimeout(() => setState("idle"), 3000);
@@ -82,6 +84,63 @@ export function ContactForm() {
       </button>
     </form>
   );
+}
+
+function trackContactFormConversion(payload: Record<string, FormDataEntryValue>) {
+  if (typeof window === "undefined") return;
+
+  const eventId = generateEventId("Lead");
+  const params = {
+    content_name: "Contact Form Lead",
+    content_category: "Education",
+    content_type: "contact_form",
+    content_ids: ["contact-form"],
+    status: "submitted",
+    program: getString(payload.subject) || "Contact Request"
+  };
+
+  // Browser and CAPI use the same event_id so Meta deduplicates this contact lead.
+  window.fbq?.("track", "Lead", params, { eventID: eventId });
+
+  void fetch("/api/enrollment-lead.php", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      action: "track_conversion",
+      form_type: "Contact Message",
+      lead: formDataFieldsToObject(payload),
+      event_id: eventId,
+      event_source_url: window.location.href,
+      fbp: getCookie("_fbp"),
+      fbc: getCookie("_fbc")
+    }),
+    keepalive: true
+  }).catch((trackingError) => {
+    console.warn("Meta CAPI contact conversion request failed.", trackingError);
+  });
+}
+
+function generateEventId(eventName: string) {
+  return `hita-${eventName.toLowerCase()}-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+}
+
+function getCookie(name: string) {
+  const pattern = new RegExp(`(?:^|; )${name.replace(/[.$?*|{}()[\]\\/+^]/g, "\\$&")}=([^;]*)`);
+  const match = document.cookie.match(pattern);
+  return match ? decodeURIComponent(match[1]) : "";
+}
+
+function formDataFieldsToObject(payload: Record<string, FormDataEntryValue>) {
+  return Object.fromEntries(
+    Object.entries(payload).filter((entry): entry is [string, string] => typeof entry[1] === "string")
+  );
+}
+
+function getString(value: FormDataEntryValue | undefined) {
+  return typeof value === "string" ? value : "";
 }
 
 function TextInput({

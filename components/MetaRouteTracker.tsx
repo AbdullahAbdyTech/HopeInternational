@@ -11,16 +11,17 @@ declare global {
 
 export function MetaRouteTracker() {
   const pathname = usePathname();
-  const initialRender = useRef(true);
   const viewedContentPaths = useRef(new Set<string>());
 
   useEffect(() => {
-    if (initialRender.current) {
-      initialRender.current = false;
-      return;
-    }
+    const params = {
+      content_name: document.title || "Hope International Tutor Academy",
+      content_category: "Education",
+      content_type: "page",
+      page_path: pathname
+    };
 
-    window.fbq?.("track", "PageView");
+    trackMetaEvent("PageView", params);
   }, [pathname]);
 
   useEffect(() => {
@@ -30,28 +31,24 @@ export function MetaRouteTracker() {
 
     viewedContentPaths.current.add(pathname);
 
-    const eventId = generateEventId("ViewContent");
-    window.fbq?.("track", "ViewContent", params, { eventID: eventId });
+    trackMetaEvent("ViewContent", params);
+  }, [pathname]);
 
-    void fetch("/api/enrollment-lead.php", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        action: "track_event",
-        event_name: "ViewContent",
-        event_id: eventId,
-        event_source_url: window.location.href,
-        fbp: getCookie("_fbp"),
-        fbc: getCookie("_fbc"),
-        custom_data: params
-      }),
-      keepalive: true
-    }).catch((error) => {
-      console.warn("Meta CAPI tracking request failed.", error);
-    });
+  useEffect(() => {
+    function handleContactClick(event: MouseEvent) {
+      const anchor = getClickedAnchor(event.target);
+      const params = getContactClickParams(anchor, pathname);
+
+      if (!params) return;
+
+      trackMetaEvent("Contact", params);
+    }
+
+    document.addEventListener("click", handleContactClick, true);
+
+    return () => {
+      document.removeEventListener("click", handleContactClick, true);
+    };
   }, [pathname]);
 
   return null;
@@ -85,7 +82,88 @@ function getViewContentParams(pathname: string) {
     };
   }
 
+  if (pathname === "/thank-you") {
+    return {
+      content_name: "Enrollment Thank You Page",
+      content_category: "Education",
+      content_type: "confirmation_page",
+      content_ids: ["thank-you"]
+    };
+  }
+
   return null;
+}
+
+function trackMetaEvent(eventName: "PageView" | "ViewContent" | "Contact", params: Record<string, unknown>) {
+  const eventId = generateEventId(eventName);
+
+  window.fbq?.("track", eventName, params, { eventID: eventId });
+
+  void fetch("/api/enrollment-lead.php", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      action: "track_event",
+      event_name: eventName,
+      event_id: eventId,
+      event_source_url: window.location.href,
+      fbp: getCookie("_fbp"),
+      fbc: getCookie("_fbc"),
+      custom_data: params
+    }),
+    keepalive: true
+  }).catch((error) => {
+    console.warn("Meta CAPI tracking request failed.", error);
+  });
+}
+
+function getClickedAnchor(target: EventTarget | null) {
+  if (!(target instanceof Element)) return null;
+
+  return target.closest<HTMLAnchorElement>("a[href]");
+}
+
+function getContactClickParams(anchor: HTMLAnchorElement | null, pathname: string) {
+  if (!anchor) return null;
+
+  const href = anchor.getAttribute("href") || "";
+  const absoluteHref = anchor.href;
+  const normalizedHref = href.toLowerCase();
+  let channel = "";
+
+  if (normalizedHref.startsWith("tel:")) {
+    channel = "phone";
+  } else if (normalizedHref.startsWith("mailto:")) {
+    channel = "email";
+  } else if (/wa\.me|whatsapp\.com|api\.whatsapp\.com/i.test(absoluteHref)) {
+    channel = "whatsapp";
+  } else {
+    try {
+      const url = new URL(absoluteHref);
+      const path = url.pathname.replace(/\/+$/, "").replace(/\.html$/, "") || "/";
+      if (path === "/contact") {
+        channel = "contact_page";
+      }
+    } catch {
+      channel = "";
+    }
+  }
+
+  if (!channel) return null;
+
+  return {
+    content_name: "Contact Click",
+    content_category: "Education",
+    content_type: "contact_action",
+    content_ids: [`contact-${channel}`],
+    contact_channel: channel,
+    link_url: absoluteHref,
+    link_text: anchor.textContent?.trim().slice(0, 120) || "",
+    page_path: pathname
+  };
 }
 
 function generateEventId(eventName: string) {

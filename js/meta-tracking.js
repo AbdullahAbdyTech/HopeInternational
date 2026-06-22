@@ -26,7 +26,6 @@
     }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
 
     fbq('init', PIXEL_ID);
-    fbq('track', 'PageView');
 
     function generateEventId(eventName) {
         var randomPart = Math.random().toString(36).slice(2, 10);
@@ -75,6 +74,24 @@
         });
     }
 
+    function getPageViewParams() {
+        return {
+            content_name: document.title || 'Hope International Tutor Academy',
+            content_category: 'Education',
+            content_type: 'page',
+            page_path: getPathname()
+        };
+    }
+
+    function trackPageView() {
+        var eventId = generateEventId('PageView');
+        var params = getPageViewParams();
+
+        // Browser and server PageView share event_id so Meta can deduplicate them.
+        trackBrowserEvent('PageView', params, eventId);
+        sendCapiEvent('PageView', eventId, params);
+    }
+
     function getViewContentParams(pathname) {
         if (pathname === '/student-enrollment') {
             return {
@@ -103,7 +120,79 @@
             };
         }
 
+        if (pathname === '/thank-you') {
+            return {
+                content_name: 'Enrollment Thank You Page',
+                content_category: 'Education',
+                content_type: 'confirmation_page',
+                content_ids: ['thank-you']
+            };
+        }
+
         return null;
+    }
+
+    function getAnchorFromClick(target) {
+        while (target && target !== document) {
+            if (target.tagName && target.tagName.toLowerCase() === 'a') {
+                return target;
+            }
+            target = target.parentNode;
+        }
+
+        return null;
+    }
+
+    function getContactClickParams(anchor) {
+        if (!anchor || !anchor.href) return null;
+
+        var href = anchor.getAttribute('href') || '';
+        var absoluteHref = anchor.href;
+        var normalizedHref = href.toLowerCase();
+        var channel = '';
+
+        if (normalizedHref.indexOf('tel:') === 0) {
+            channel = 'phone';
+        } else if (normalizedHref.indexOf('mailto:') === 0) {
+            channel = 'email';
+        } else if (/wa\.me|whatsapp\.com|api\.whatsapp\.com/i.test(absoluteHref)) {
+            channel = 'whatsapp';
+        } else {
+            try {
+                var url = new URL(absoluteHref);
+                var path = url.pathname.replace(/\/+$/, '').replace(/\.html$/, '') || '/';
+                if (path === '/contact') {
+                    channel = 'contact_page';
+                }
+            } catch (error) {
+                channel = '';
+            }
+        }
+
+        if (!channel) return null;
+
+        return {
+            content_name: 'Contact Click',
+            content_category: 'Education',
+            content_type: 'contact_action',
+            content_ids: ['contact-' + channel],
+            contact_channel: channel,
+            link_url: absoluteHref,
+            link_text: (anchor.textContent || '').trim().slice(0, 120),
+            page_path: getPathname()
+        };
+    }
+
+    function trackContactClick(event) {
+        var anchor = getAnchorFromClick(event.target);
+        var params = getContactClickParams(anchor);
+
+        if (!params) return;
+
+        var eventId = generateEventId('Contact');
+
+        trackBrowserEvent('Contact', params, eventId);
+        sendCapiEvent('Contact', eventId, params);
     }
 
     function trackFormPageViewContent() {
@@ -151,6 +240,10 @@
         trackBrowserEvent: trackBrowserEvent,
         sendCapiEvent: sendCapiEvent
     };
+
+    document.addEventListener('click', trackContactClick, true);
+
+    trackPageView();
 
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function () {
