@@ -62,7 +62,8 @@ function handle_track_event(array $payload): void
         'capi_configured' => $capi['configured'],
         'capi_sent' => $capi['sent'],
         'capi_status' => $capi['status'],
-        'capi_transport' => $capi['transport']
+        'capi_transport' => $capi['transport'],
+        'capi_message' => capi_public_message($capi)
     ]);
 }
 
@@ -114,7 +115,8 @@ function handle_submit_enrollment(array $payload): void
         'capi_configured' => $capi['configured'],
         'capi_sent' => $capi['sent'],
         'capi_status' => $capi['status'],
-        'capi_transport' => $capi['transport']
+        'capi_transport' => $capi['transport'],
+        'capi_message' => capi_public_message($capi)
     ]);
 }
 
@@ -152,7 +154,8 @@ function handle_track_conversion(array $payload): void
             'capi_configured' => $capi['configured'],
             'capi_sent' => $capi['sent'],
             'capi_status' => $capi['status'],
-            'capi_transport' => $capi['transport']
+            'capi_transport' => $capi['transport'],
+            'capi_message' => capi_public_message($capi)
         ]);
     }
 
@@ -179,7 +182,8 @@ function handle_track_conversion(array $payload): void
         'capi_configured' => $capi['configured'],
         'capi_sent' => $capi['sent'],
         'capi_status' => $capi['status'],
-        'capi_transport' => $capi['transport']
+        'capi_transport' => $capi['transport'],
+        'capi_message' => capi_public_message($capi)
     ]);
 }
 
@@ -474,6 +478,18 @@ function get_secret_value(string $key): string
     }
 
     return '';
+}
+
+function capi_public_message(array $capi): string
+{
+    if (!empty($capi['sent'])) {
+        return '';
+    }
+
+    $message = sanitize_textarea((string) ($capi['response'] ?? ''), 1000);
+    $message = preg_replace('/EAA[A-Za-z0-9]+/', '[redacted]', $message) ?: '';
+
+    return $message;
 }
 
 function sanitize_custom_data($customData): array
